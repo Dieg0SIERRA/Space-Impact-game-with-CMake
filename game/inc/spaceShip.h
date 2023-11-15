@@ -1,0 +1,28 @@
+/**
+ * @file
+ * @brief     Spaceship class
+ * @copyright Diego SIERRA
+ */
+
+#ifndef SPACESHIP_H
+#define SPACESHIP_H
+
+#include "basicElement.h"
+
+class Spaceship : public BasicElement
+{
+public:
+    Spaceship();
+
+    void draw()  ;
+    void move();
+    void erase()  ;
+    void collisionDetection(int x, int y);
+    void setLifes(char value);
+    int getLifes();
+
+private:
+    int m_lifes;
+    
+};
+#endif
