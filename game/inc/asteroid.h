@@ -13,11 +13,12 @@ class Asteroid : public BasicElement
 {
 public:
     Asteroid(int x, int y);
+    ~Asteroid() = default;
 
-    void draw(int x, int y);
+    void draw(int x, int y) const;
     void move();
-    void erase();
-    void collisionDetection(int x, int y);
+    //void erase();
+    void collisionDetection(int x, int y) const;
 
 private:
 };
