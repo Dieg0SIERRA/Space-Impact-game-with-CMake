@@ -13,10 +13,11 @@ class Spaceship : public BasicElement
 {
 public:
     Spaceship();
+    ~Spaceship() = default;
 
-    void draw()  ;
+    void draw() const;
     void move();
-    void erase()  ;
+    void erase() const;
     void collisionDetection(int x, int y);
     void setLifes(char value);
     int getLifes();
