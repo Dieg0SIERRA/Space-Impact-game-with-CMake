@@ -13,9 +13,10 @@ class Bullet : public BasicElement
 {
 public:
     Bullet(int x, int y);
+    ~Bullet() = default;
 
     bool move();
-    void erase();
+    //void erase();
 
 private:
 };
