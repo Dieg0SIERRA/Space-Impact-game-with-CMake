@@ -9,11 +9,23 @@
 
 #include "tools.h"
 
+#define X_LIMIT 102
+#define Y_LIMIT 45
+
+enum ScreenElement
+{
+    SCORE,
+    LEVEL,
+    LIFE,
+    HEALTH,
+    ALL
+};
 
 class Screen 
 {
 public:
     Screen();
+    ~Screen() = default;
 
     int getLevel() const;
     int getScore() const;
@@ -31,9 +43,7 @@ private:
     int m_level;
     int m_score;
     int m_life;
-    int m_health;
-    
-    
+    int m_health;    
 };
 
 #endif
