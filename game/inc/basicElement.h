@@ -13,15 +13,16 @@ class BasicElement
 {
 public:
     BasicElement();
+    ~BasicElement() = default;
 
-    virtual void draw(int x, int y);
-    virtual void move(int x, int y) 
-    virtual void collisionDetection(int x, int y);
-	virtual void erase(int x, int y);
+    //virtual void draw(int x, int y);
+    //virtual void move(int x, int y) 
+    //virtual void collisionDetection(int x, int y);
+    virtual void erase(int x, int y) const;
 
-    int getX();
-    int getY();
-    int getHealth();
+    int getX() const;
+    int getY() const;
+    int getHealth() const;
     void setX(int value);
     void setY(int value);
     void setHealth(char value);
@@ -30,8 +31,7 @@ private:
     int m_x;
     int m_y;
     int m_health;
-    bool m_collision;
-    
+    bool m_collision;    
 };
 
 #endif
