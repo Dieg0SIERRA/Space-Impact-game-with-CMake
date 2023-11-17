@@ -21,19 +21,6 @@ set(HEADERS
 
 add_library(game ${SRCS} ${HEADERS})
 
-add_library(game SHARED 
-    inc/asteroid.h
-    inc/basicElement.h
-    inc/bullet.h
-    inc/screen.h
-    inc/spaceShip.h
-    src/asteroid.cpp
-    src/basicElement.cpp
-    src/bullet.cpp
-    src/screen.cpp
-    src/spaceShip.cpp
-)
-
 target_include_directories(game PUBLIC 
     ${CMAKE_CURRENT_LIST_DIR}/inc    
     ${CMAKE_CURRENT_LIST_DIR}/src
