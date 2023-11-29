@@ -17,6 +17,7 @@ set(HEADERS
     inc/screen.h
     inc/spaceShip.h
     inc/tools.h
+    inc/animations.h
 )
 
 add_library(game ${SRCS} ${HEADERS})
