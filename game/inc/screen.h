@@ -38,6 +38,9 @@ public:
     void printScreen(ScreenElement element);
     void limits();
     void printHealth();
+    void modifLevel(char value);
+    void healthToZero();
+    void printEnd();
 
 private:
     int m_level;
