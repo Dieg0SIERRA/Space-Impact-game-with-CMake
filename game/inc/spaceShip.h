@@ -7,20 +7,22 @@
 #ifndef SPACESHIP_H
 #define SPACESHIP_H
 
-#include "basicElement.h"
+#include "gameObject.h"
 
-class Spaceship : public BasicElement
+class Spaceship : public GameObject
 {
 public:
     Spaceship();
     ~Spaceship() = default;
 
-    void draw() const;
-    void move();
-    void erase() const;
-    void collisionDetection(int x, int y);
+    virtual void move() override;
+    virtual void draw(int x, int y) override ;
+    virtual void erase(int x, int y) override ;
+
+    void collisionDetection(int x, int y) const ;
     void setLifes(char value);
     int getLifes();
+    void animationShipDie();
 
 private:
     int m_lifes;

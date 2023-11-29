@@ -5,6 +5,7 @@
  */
 
 #include "screen.h"
+#include "animations.h"
 
 Screen::Screen()
     : m_level(1), m_score(0), m_life(MAX_LIFE), m_health(MAX_HEALTH)
@@ -18,6 +19,16 @@ int Screen::getScore() const {    return m_score;    }
 int Screen::getLife() const {    return m_life;    }
 
 int Screen::getHealth() const {    return m_health;    }
+
+void Screen::endScreen(){
+    gotoxy(0, 2);
+    for(auto it : gameOver)
+    {
+        std::cout << it << "\n";
+    }
+    gotoxy(15, 47); printf("You are a fucking LOOOOOSER!!!!!");
+    gotoxy(1, 48);
+}
 
 void Screen::modifHealth(char value) 
 {
@@ -36,6 +47,13 @@ void Screen::modifLife(char value)
     if(value == '+')    ++m_life;
     else if(value == '-')    --m_life;
     else if(value == 's')    m_life = MAX_LIFE;
+}
+void Screen::healthToZero()
+{
+    --m_life;
+    m_health = MAX_HEALTH;
+    gotoxy(50, 2);      printf("LIFES %d", m_life);
+    printHealth();
 }
 
 void Screen::printScreen(ScreenElement element)
@@ -63,6 +81,11 @@ void Screen::printScreen(ScreenElement element)
     default:
         break;
     }
+}
+
+void Screen::printEnd()
+{
+    gotoxy(70, 2);      printf(" ...                        ");
 }
 
 void Screen::limits()

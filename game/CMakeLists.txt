@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 project(Space_Impact_CMake)
 set(SRCS
     src/asteroid.cpp
-    src/basicElement.cpp
+    src/gameObject.cpp
     src/bullet.cpp
     src/screen.cpp
     src/spaceShip.cpp
@@ -12,11 +12,12 @@ set(SRCS
     
 set(HEADERS
     inc/asteroid.h
-    inc/basicElement.h
+    inc/gameObject.h
     inc/bullet.h
     inc/screen.h
     inc/spaceShip.h
     inc/tools.h
+    inc/animations.h
 )
 
 add_library(game ${SRCS} ${HEADERS})

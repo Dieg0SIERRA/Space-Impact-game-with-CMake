@@ -6,13 +6,13 @@
 
 #include "bullet.h"
 
-Bullet::Bullet(int x, int y) : BasicElement()
+Bullet::Bullet(int x, int y)
 {
-  setX(x);
-  setY(y);
+    setX(x);
+    setY(y);
 }
 
-bool Bullet::move()
+void Bullet::move()
 {
     bool bulletOut = false;
     int valueY = getY();
@@ -22,11 +22,15 @@ bool Bullet::move()
     if (valueY > 4) {   setY(--valueY);  }
     else if (valueY == 4)    {  bulletOut = true;  }   
     
-    gotoxy(valueX, valueY);      printf("*");
-    return bulletOut;
+    draw(valueX, valueY);
+    //return bulletOut;
 }
 
-void Bullet::erase()
-{
+void Bullet::draw(int x, int y){
+    gotoxy(x, y);      printf("*");
+}
 
+void Bullet::erase(int x, int y) 
+{
+    gotoxy(x, y);      printf("  ");
 }

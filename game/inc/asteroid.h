@@ -7,17 +7,17 @@
 #ifndef ASTEROID_H
 #define ASTEROID_H
 
-#include "basicElement.h"
+#include "gameObject.h"
 
-class Asteroid : public BasicElement
+class Asteroid : public GameObject
 {
 public:
     Asteroid(int x, int y);
     ~Asteroid() = default;
 
-    void draw(int x, int y) const;
-    void move();
-    //void erase();
+    virtual void move() override;
+    virtual void draw(int x, int y) override ;
+    virtual void erase(int x, int y) override ;
     void collisionDetection(int x, int y) const;
 
 private:

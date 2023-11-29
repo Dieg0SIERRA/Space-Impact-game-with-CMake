@@ -6,12 +6,11 @@
 
 
 #include "asteroid.h"
-#include "basicElement.h"
+#include "gameObject.h"
 #include "bullet.h"
 #include "screen.h"
 #include "spaceShip.h"
 #include "tools.h"
-#include "animations.h"
 
 using VECT_Asteroid = std::vector<Asteroid>;
 using VECT_Bullet = std::vector<Bullet>;

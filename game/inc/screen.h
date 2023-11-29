@@ -35,15 +35,19 @@ public:
     void modifHealth(char value);
     void modifScore(char value);
     void modifLife(char value);
+    void modifLevel(char value);
+    void healthToZero();
     void printScreen(ScreenElement element);
     void limits();
+    void printEnd();
+    void endScreen();
     void printHealth();
 
 private:
     int m_level;
     int m_score;
     int m_life;
-    int m_health;    
+    int m_health;
 };
 
 #endif
