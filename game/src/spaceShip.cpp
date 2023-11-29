@@ -67,4 +67,23 @@ void Spaceship::erase()
     gotoxy(valueX, valueY+2);    printf("         ", 30);
 }
 
+void Spaceship::animationShipDie()
+{
+    int valueY = getY();
+    int valueX = getX();
 
+    erase();
+    system("Color 0C");
+    gotoxy(valueX, valueY);        printf("   **   ");
+    gotoxy(valueX, valueY+1);      printf("  ****  ");
+    gotoxy(valueX, valueY+2);      printf("   **   ");
+    Sleep(500);
+    erase();
+    gotoxy(valueX, valueY);        printf(" *  **  *");
+    gotoxy(valueX, valueY+1);      printf("   ****  ");
+    gotoxy(valueX, valueY+2);      printf(" *  **  *");
+    Sleep(500);
+    erase();
+    system("Color 0A");
+    draw();
+}
