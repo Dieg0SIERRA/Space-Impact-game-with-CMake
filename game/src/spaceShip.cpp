@@ -22,7 +22,7 @@ void Spaceship::setLifes(char value)
     else if(value == 's')    m_lifes = MAX_LIFE; 
 }
 
-void Spaceship::draw() 
+void Spaceship::draw() const
 {
     int valueY = getY();
     int valueX = getX();
@@ -54,10 +54,10 @@ void Spaceship::move()
     }
 }
 
-void Spaceship::collisionDetection(int x, int y) 
+void Spaceship::collisionDetection(int x, int y) const
 {}
 
-void Spaceship::erase() 
+void Spaceship::erase() const
 {
     int valueY = getY();
     int valueX = getX();
