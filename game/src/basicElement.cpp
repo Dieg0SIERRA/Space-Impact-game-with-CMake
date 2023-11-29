@@ -12,9 +12,9 @@ BasicElement::BasicElement()
 {
 }
 
-int BasicElement::getX() {    return m_x;    }
-int BasicElement::getY() {    return m_y;    }
-int BasicElement::getHealth() {    return m_health;    }
+int BasicElement::getX() const {    return m_x;    }
+int BasicElement::getY() const {    return m_y;    }
+int BasicElement::getHealth() const {    return m_health;    }
 
 void BasicElement::setX(int value) {    m_x = value;    }
 void BasicElement::setY(int value) {    m_y = value;    }
@@ -25,16 +25,7 @@ void BasicElement::setHealth(char value)
     else if(value == 's')    m_health = MAX_HEALTH;
 }
 
-void BasicElement::draw(int x, int y)
-{}
-
-void BasicElement::move(int x, int y)
-{}
-
-void BasicElement::collisionDetection(int x, int y)
-{}
-
-void BasicElement::erase(int x, int y)
+void BasicElement::erase(int x, int y) const
 {
     gotoxy(x, y);      printf("  ");
 }
