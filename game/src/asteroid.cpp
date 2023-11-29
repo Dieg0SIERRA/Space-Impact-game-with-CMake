@@ -12,7 +12,7 @@ Asteroid::Asteroid(int x, int y) : BasicElement()
   setY(y);  
 }
 
-void Asteroid::draw(int x, int y)
+void Asteroid::draw(int x, int y) const
 {
   gotoxy(x, y);      printf(" %c", 184);
 }
@@ -38,9 +38,4 @@ void Asteroid::move()
     draw(valueX, valueY);
     setY(valueY);
     setX(valueX);
-}
-
-void Asteroid::collisionDetection(int x, int y)
-{
-
 }
