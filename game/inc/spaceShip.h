@@ -18,7 +18,7 @@ public:
     void draw() const;
     void move();
     void erase() const;
-    void collisionDetection(int x, int y);
+    void collisionDetection(int x, int y) const;
     void setLifes(char value);
     int getLifes();
     void animationShipDie();
