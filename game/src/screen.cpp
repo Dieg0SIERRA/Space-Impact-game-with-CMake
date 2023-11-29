@@ -38,6 +38,14 @@ void Screen::modifLife(char value)
     else if(value == 's')    m_life = MAX_LIFE;
 }
 
+void Screen::healthToZero()
+{
+    --m_life;
+    m_health = MAX_HEALTH;
+    gotoxy(50, 2);      printf("LIFES %d", m_life);
+    printHealth();
+}
+
 void Screen::printScreen(ScreenElement element)
 {
     switch (element)
@@ -63,6 +71,11 @@ void Screen::printScreen(ScreenElement element)
     default:
         break;
     }
+}
+
+void Screen::printEnd()
+{
+    gotoxy(70, 2);      printf(" ...                        ");
 }
 
 void Screen::limits()
