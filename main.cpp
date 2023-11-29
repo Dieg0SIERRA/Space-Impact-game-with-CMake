@@ -124,7 +124,7 @@ int main()
     {
         std::cout << it << "\n";
     }
-    gotoxy(15, 47); printf("You are a fucking LOOOOOSER!!!!!");
+    gotoxy(15, 47); printf("You are a LOOOOOSER!!!!!");
     gotoxy(1, 48);
 
     return 0;
