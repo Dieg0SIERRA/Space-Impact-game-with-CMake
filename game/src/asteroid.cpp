@@ -19,12 +19,25 @@ void Asteroid::draw(int x, int y)
 
 void Asteroid::move() 
 {
+    int valueY = getY();
+    int valueX = getX();
 
-}
-
-void Asteroid::erase() 
-{
-
+    if (valueY > 3 && valueY < 33) {
+        gotoxy(valueX, valueY);      printf("  ");
+    }
+    if (valueY >= 32)
+    {
+        valueX = rand()%LIM_RIGHT + 3;
+        valueY = 4;
+    }
+    else {
+        ++valueY;
+    }
+        
+    Sleep(20);
+    draw(valueX, valueY);
+    setY(valueY);
+    setX(valueX);
 }
 
 void Asteroid::collisionDetection(int x, int y)
