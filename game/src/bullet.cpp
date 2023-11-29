@@ -25,8 +25,3 @@ bool Bullet::move()
     gotoxy(valueX, valueY);      printf("*");
     return bulletOut;
 }
-
-void Bullet::erase()
-{
-
-}
