@@ -21,9 +21,9 @@ public:
     void collisionDetection(int x, int y);
     void setLifes(char value);
     int getLifes();
+    void animationShipDie();
 
 private:
-    int m_lifes;
-    
+    int m_lifes;    
 };
 #endif
