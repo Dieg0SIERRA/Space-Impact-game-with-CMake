@@ -9,6 +9,9 @@
 
 #include "gameObject.h"
 
+#define X_init 37
+#define Y_init 30
+
 class Spaceship : public GameObject
 {
 public:

@@ -2,12 +2,14 @@
  * @file
  * @brief     Tools class
  * @copyright Diego SIERRA
+ *  TODO: search how to use and test compiler explorer https://godbolt.org/ 
  */
 
 #ifndef TOOLS_H
 #define TOOLS_H
 
 #include <stdio.h>
+#include <cstdint>
 #include <windows.h>
 #include <conio.h>
 #include <stdlib.h>
@@ -27,6 +29,10 @@
 #define POINT   5
 #define MAX_HEALTH 2
 #define MAX_LIFE 2
+#define ARROW_DOWN 25
+#define ENTER 13
+#define ESC 27
+#define SPACE 32
 
 enum Collision
 {
@@ -40,5 +46,6 @@ enum Collision
 void gotoxy(int x, int y);
 void ConsoleColor(int n);
 void hideCursor();
+char getKey();
 
 #endif

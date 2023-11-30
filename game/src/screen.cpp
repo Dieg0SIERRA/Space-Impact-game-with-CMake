@@ -20,6 +20,24 @@ int Screen::getLife() const {    return m_life;    }
 
 int Screen::getHealth() const {    return m_health;    }
 
+void Screen::init()
+{
+    //system("cls");
+    //system("Color 0A");
+}
+
+void Screen::homeScreen()
+{
+    system("cls");
+    system("Color 0A");
+
+    gotoxy(0, 2);   for(auto it : startGame) {  std::cout << it << "\n"; }
+
+    gotoxy(50, 30);   printf(" NEW GAME  (press 'p')");
+    gotoxy(50, 33);   printf(" LOAD GAME (press 'l')");
+    gotoxy(50, 36);   printf(" EXIT GAME (press 'q')");
+}
+
 void Screen::endScreen(){
     gotoxy(0, 2);
     for(auto it : gameOver)
@@ -37,10 +55,10 @@ void Screen::modifHealth(char value)
     else if(value == 's')    m_health = MAX_HEALTH;
 }
 
-void Screen::modifScore(char value) {
+void Screen::modifScore(char value) {    
     m_score += value;
     gotoxy(20, 2);      printf("Score %d", m_score);
-}
+    }
 
 void Screen::modifLife(char value)
 {
@@ -110,10 +128,16 @@ void Screen::limits()
 void Screen::printHealth()
 {
     int i, j = 0;
-    gotoxy(70, 2);      printf("                         ");
+    gotoxy(73, 2);      printf("\t");
     for (i = 0; i < m_health; i++)
     {
-        gotoxy(70+j+i, 2);      printf("%c ",3);
+        gotoxy(73+j+i, 2);      printf("%c ",3);
         j++;
     }
+}
+
+void Screen::printStatusBar(){
+    gotoxy(20, 2);
+    printf("LEVEL  %d \t Score  %d \t LIFES  %d \t Health  ", m_level, m_score, m_life);
+    printHealth();
 }

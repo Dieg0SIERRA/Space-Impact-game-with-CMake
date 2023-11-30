@@ -39,9 +39,9 @@ void Spaceship::move()
     int valueX = getX();
     char touch;
 
-    if (kbhit())    //Fonction to detect if a touch was 
+    if (_kbhit())    //Fonction to detect if a touch was 
     {
-        touch = getch();
+        touch = _getch();
         erase(valueX, valueY);
         if (touch == 'q' && valueX > 3)      valueX--;
         if (touch == 'd' && valueX+6 < 77)   valueX++;

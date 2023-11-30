@@ -8,6 +8,8 @@ set(SRCS
     src/screen.cpp
     src/spaceShip.cpp
     src/tools.cpp
+    src/game.cpp
+    src/enemies.cpp
 )
     
 set(HEADERS
@@ -17,6 +19,9 @@ set(HEADERS
     inc/screen.h
     inc/spaceShip.h
     inc/tools.h
+    inc/game.h
+    inc/enemies.h
+    inc/factoryEnemies.h
     inc/animations.h
 )
 

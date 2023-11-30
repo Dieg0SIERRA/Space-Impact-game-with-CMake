@@ -4,18 +4,20 @@
  * @copyright Diego SIERRA
  */
 
-
 #include "asteroid.h"
 #include "gameObject.h"
 #include "bullet.h"
 #include "screen.h"
 #include "spaceShip.h"
+#include "game.h"
 #include "tools.h"
 
-using VECT_Asteroid = std::vector<Asteroid>;
-using VECT_Bullet = std::vector<Bullet>;
+
+//using VECT_Asteroid = std::vector<Asteroid>;
+//using VECT_Bullet = std::vector<Bullet>;
 
 Collision collision(class Spaceship& ship, class Bullet& bullet, class Asteroid& asteroid);
+//Collision collisionShip(class Spaceship& ship, class Asteroid& asteroid);
 
 int main()
 {
@@ -25,21 +27,28 @@ int main()
     int countBullet;
     int astSpeed = 1;
 
-    hideCursor();
-    system("cls");
-    system("Color 0A");
-    srand(time(0));
+    Game game;
+
+    //hideCursor();
+    //srand(time(0));
+    game.run();
 
     Screen display;
     Spaceship ship;
     VECT_Bullet bullets;
     VECT_Asteroid ast;
 
-    display.printScreen(ALL);
-    display.limits();    
-    ship.draw();
+    //display.init();
+    //display.homeScreen();
+    //Sleep(5000);
+    //system("cls");
+
+    //display.printScreen(ALL);
+    //display.limits();    
+    ship.draw(X_init, Y_init);
 
     for(int i = 0; i < 3; i++) {
+        //ast.push_back(Asteroid(37, 3+i));
         ast.push_back(Asteroid(rand()%LIM_RIGHT+3, 3));
     }
 
@@ -48,19 +57,21 @@ int main()
         countAst = 0;
         countBullet = 0;
 
-        if (kbhit())
+        if (_kbhit())
         {
-            touch = getch();
+            touch = _getch();
             if(touch == 'b') {
                 bullets.push_back(Bullet(ship.getX()+2, ship.getY()-1));
             }
         }
 
         for(Bullet& bullet : bullets) {
-            bool bulletOut = bullet.move();
-            if (bulletOut) {
-                bullet.erase(bullet.getX(), bullet.getY());
-            }
+            bullet.move();
+            //bool bulletOut = bullet.move();
+            //if (bulletOut) {
+            //    //bullets.erase(bullets.begin() + countBullet);
+            //    bullet.erase(bullet.getX(), bullet.getY());
+            //}
         }
 
         if(astSpeed > 15)
@@ -84,6 +95,7 @@ int main()
                     ast.erase(ast.begin() + countAst);
                     ast.push_back(Asteroid(rand()%75+3, 4));
                     display.modifScore(POINT);
+                    //display.printScreen(SCORE);
                     ++countBullet;
                 }
                 else if(result == Spaceship_impacted) {
@@ -99,6 +111,10 @@ int main()
                     ship.setLifes('-');
                     ship.setHealth('s');
                     auto start = std::chrono::system_clock::now();
+                    //display.modifLife('-');
+                    //display.modifHealth('s');
+                    //display.printScreen(LIFE);
+                    //display.printScreen(HEALTH);
                     display.healthToZero();
                     auto end = std::chrono::system_clock::now();
                     std::chrono::duration<float,std::milli> duration = end - start;
@@ -118,14 +134,9 @@ int main()
         Sleep(1);
     } 
 
-    gotoxy(0, 2);
-    for(auto it : gameOver)
-    {
-        std::cout << it << "\n";
-    }
-    gotoxy(15, 47); printf("You are a fucking LOOOOOSER!!!!!");
-    gotoxy(1, 48);
-
+    //printf("\nSpaceship created %d", ship.getHealth());
+    display.endScreen();
+    
     return 0;
 }
 
@@ -153,3 +164,4 @@ Collision collision(class Spaceship& ship, class Bullet& bullet, class Asteroid&
     }
     return result;
 }
+

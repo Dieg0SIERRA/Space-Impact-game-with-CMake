@@ -40,8 +40,11 @@ public:
     void printScreen(ScreenElement element);
     void limits();
     void printEnd();
-    void endScreen();
     void printHealth();
+    void init();
+    void homeScreen();
+    void endScreen();
+    void printStatusBar();
 
 private:
     int m_level;
