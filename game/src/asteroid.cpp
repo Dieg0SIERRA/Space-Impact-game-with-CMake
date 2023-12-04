@@ -7,6 +7,7 @@
 #include "asteroid.h"
 
 Asteroid::Asteroid(int x, int y)
+    : m_speed(15), m_size(1)
 {
     setX(x);
     setY(y);
@@ -18,9 +19,16 @@ void Asteroid::setSize(uint8_t size) { m_speed = size; }
 int Asteroid::getSpeed() const { return m_speed; }
 uint8_t Asteroid::getSize() const { return m_size; }
 
-void Asteroid::draw(int x, int y) 
+//void Asteroid::draw(int x, int y) 
+//{
+//    gotoxy(x, y);      printf(" %c", 184);
+//}
+
+void Asteroid::draw() 
 {
-    gotoxy(x, y);      printf(" %c", 184);
+    int valueY = getY();
+    int valueX = getX();
+    gotoxy(valueX, valueY);      printf(" %c", 184);
 }
 
 void Asteroid::move() 
@@ -41,7 +49,7 @@ void Asteroid::move()
     }
         
     Sleep(20);
-    draw(valueX, valueY);
+    //draw(valueX, valueY);
     setY(valueY);
     setX(valueX);
 }

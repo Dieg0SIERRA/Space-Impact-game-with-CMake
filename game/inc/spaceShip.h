@@ -19,12 +19,14 @@ public:
     ~Spaceship() = default;
 
     virtual void move() override;
-    virtual void draw(int x, int y) override ;
+    virtual void draw() override ;
+    //virtual void draw(int x, int y) override ;
     virtual void erase(int x, int y) override ;
 
     void collisionDetection(int x, int y) const ;
     void setLifes(char value);
     int getLifes();
+    void createShip();
     void animationShipDie();
 
 private:

@@ -20,7 +20,7 @@
 
 //using VECT_Asteroid = std::vector<Asteroid>;
 using VECT_Bullet = std::vector<Bullet>;
-using VECT_GameObject = std::vector<GameObject>;
+using VECT_PtrGameObj = std::vector<GameObject*>;
 
 class Game
 {
@@ -28,19 +28,25 @@ public:
     Game();
     ~Game() = default;
 
+    void setLevel(uint8_t value);
+    uint8_t getLevel() const;
+
     void run();
     void initGame();
     void update();
     void draw();
+    void initGameObjVect();
+    void moveGameObjects();
 
 private:
     Screen *m_display;
     Spaceship *m_ship;
     Enemies *m_enemis;
+    VECT_PtrGameObj m_gameObjects;
 
     char m_key;
     //Enemis *m_enemis;
-    //Level *m_level;
+    uint8_t m_level;
    
     VECT_Bullet m_bullets;
 };

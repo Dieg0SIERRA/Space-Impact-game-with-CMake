@@ -7,7 +7,12 @@
 #include "spaceShip.h"
 
 Spaceship::Spaceship()
+    :   m_lifes(0)
 {
+}
+
+void Spaceship::createShip(){
+
     setX(37);
     setY(30);
     setHealth('s');
@@ -22,14 +27,22 @@ void Spaceship::setLifes(char value)
     else if(value == 's')    m_lifes = MAX_LIFE; 
 }
 
-void Spaceship::draw(int x, int y)
-{
-    //int valueY = getY();
-    //int valueX = getX();
+//void Spaceship::draw(int x, int y)
+//{
+//    gotoxy(x, y);      printf("  %c", 30);
+//    gotoxy(x, y+1);    printf(" %c%c%c", 40, 207, 41);
+//    gotoxy(x, y+2);    printf("%c%c %c%c", 30, 190, 190, 30);
+//    gotoxy(0, 34);
+//}
 
-    gotoxy(x, y);      printf("  %c", 30);
-    gotoxy(x, y+1);    printf(" %c%c%c", 40, 207, 41);
-    gotoxy(x, y+2);    printf("%c%c %c%c", 30, 190, 190, 30);
+void Spaceship::draw()
+{
+    int valueY = getY();
+    int valueX = getX();
+
+    gotoxy(valueX, valueY);      printf("  %c", 30);
+    gotoxy(valueX, valueY+1);    printf(" %c%c%c", 40, 207, 41);
+    gotoxy(valueX, valueY+2);    printf("%c%c %c%c", 30, 190, 190, 30);
     gotoxy(0, 34);
 }
 
@@ -50,7 +63,7 @@ void Spaceship::move()
         
         setX(valueX);
         setY(valueY);                       
-        draw(valueX, valueY);
+        //draw(valueX, valueY);
     }
 }
 
@@ -85,5 +98,6 @@ void Spaceship::animationShipDie()
     Sleep(500);
     erase(valueX, valueY);
     system("Color 0A");
-    draw(valueX, valueY);
+    //draw(valueX, valueY);
+    draw();
 }

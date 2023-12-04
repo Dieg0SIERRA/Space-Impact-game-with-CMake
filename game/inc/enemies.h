@@ -15,16 +15,20 @@ public:
     Enemies();
     ~Enemies() = default;
 
-    virtual void createAsteroid() override;
-
-    void setNumAst(int numAst);
-    int getNumAst() const;
+    virtual Asteroid *createAsteroid() override;
     //virtual Obstacle *createObstacle() override;
     //TODO: implementar los otros tipos de enemigos
+
+    void setNumAst(int numAst);
+    void setNumObst(int numObst);
+    int getNumAst() const;
+    int getNumObst() const;
+    void setNumEnemies(int numAst, int numObst);
 
 private:
     VECT_Asteroid ast;
     int m_numAst = 0;
+    int m_numObst = 0;
 };
 
 #endif

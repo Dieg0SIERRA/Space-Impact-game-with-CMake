@@ -16,7 +16,7 @@ class FactoryEnemies
 {
 public:
 
-    virtual void createAsteroid() = 0;
+    virtual Asteroid *createAsteroid() = 0;
     //virtual Obstacle *createObstacle() = 0;
     //TODO: implementar los otros tipos de enemigos
 

@@ -32,19 +32,21 @@ int main()
     //hideCursor();
     //srand(time(0));
     game.run();
+    //game.initGame();
 
     Screen display;
     Spaceship ship;
     VECT_Bullet bullets;
     VECT_Asteroid ast;
-
-    //display.init();
+/*
+    ship.createShip();
     //display.homeScreen();
     //Sleep(5000);
     //system("cls");
-
-    //display.printScreen(ALL);
-    //display.limits();    
+    //display.printStatusBar();
+    //display.limits();  
+    
+    //display.printScreen(ALL);      
     ship.draw(X_init, Y_init);
 
     for(int i = 0; i < 3; i++) {
@@ -136,7 +138,7 @@ int main()
 
     //printf("\nSpaceship created %d", ship.getHealth());
     display.endScreen();
-    
+*/    
     return 0;
 }
 
