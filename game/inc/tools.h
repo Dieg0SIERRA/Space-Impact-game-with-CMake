@@ -22,10 +22,10 @@
 
 #define LIM_LEFT 3
 #define LIM_RIGHT 76
-#define RIGHT   77
-#define LEFT    75
-#define UP      72
-#define DOWN    80
+//#define RIGHT   77
+//#define LEFT    75
+//#define UP      72
+//#define DOWN    80
 #define POINT   5
 #define MAX_HEALTH 2
 #define MAX_LIFE 2
@@ -43,9 +43,16 @@ enum Collision
     Game_Over
 };
 
-void gotoxy(int x, int y);
-void ConsoleColor(int n);
-void hideCursor();
-char getKey();
+class Tools
+{
+    public:
+
+    static void gotoxy(int x, int y);
+    static void ConsoleColor(int n);
+    static void hideCursor();
+
+    //getting key from keyboard
+    static int getKey();
+};
 
 #endif

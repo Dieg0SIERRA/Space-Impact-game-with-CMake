@@ -24,6 +24,7 @@ public:
     void setSize(uint8_t speed);
     int getSpeed() const ;
     uint8_t getSize() const ;
+    void downSpeed();
 
     void collisionDetection(int x, int y) const;
 

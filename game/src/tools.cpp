@@ -6,7 +6,7 @@
 
 #include "tools.h"
 
-void gotoxy(int x, int y)
+void Tools::gotoxy(int x, int y)
 {
     /*
     This fonction (in windows.h) permit to move the cursor to x,y position
@@ -20,13 +20,13 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(hCon, dwPos);
 }
 
-void ConsoleColor(int n)
+void Tools::ConsoleColor(int n)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, n);  
 }
 
-void hideCursor()
+void Tools::hideCursor()
 {
     HANDLE hCon;
     hCon = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -36,7 +36,7 @@ void hideCursor()
     SetConsoleCursorInfo(hCon, &cci);
 }
 
-char getKey() {
+int Tools::getKey() {
     if (_kbhit()) {  return _getch(); }
     else    return ' ';
 }

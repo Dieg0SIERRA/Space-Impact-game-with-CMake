@@ -29,6 +29,8 @@ public:
     ~Game() = default;
 
     void setLevel(uint8_t value);
+    void setKey(int value);
+    int  getKey() const;
     uint8_t getLevel() const;
 
     void run();
@@ -36,7 +38,10 @@ public:
     void update();
     void draw();
     void initGameObjVect();
-    void moveGameObjects();
+    void updateKey();
+    void updateGameObjects();
+    void timeWait();
+    void ctrlSpeedAst();
 
 private:
     Screen *m_display;
@@ -44,7 +49,7 @@ private:
     Enemies *m_enemis;
     VECT_PtrGameObj m_gameObjects;
 
-    char m_key;
+    int m_key;
     //Enemis *m_enemis;
     uint8_t m_level;
    

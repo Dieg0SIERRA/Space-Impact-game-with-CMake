@@ -8,7 +8,7 @@
 
 Game::Game() 
     : m_level(1), m_display(new Screen()), m_ship(new Spaceship()), m_enemis(new Enemies()) {
-    hideCursor();
+    Tools::hideCursor();
     srand(time(0));
 
     //m_display->init();
@@ -20,31 +20,30 @@ Game::Game()
 }
 
 void Game::setLevel(uint8_t value) { m_level = value; }
+void Game::setKey(int value) { m_key = value; }
+int  Game::getKey() const { return m_key; }
 uint8_t Game::getLevel() const     { return m_level; }
 
 void Game::run() {
     // TODO:inicializar juego pidiendo la tecla de arriba o abajo y luego enter para el primer nivel
     initGame();
 
-    int counter = 0;
-
     do {
         update();
         draw();
-        //counter++;
-        Sleep(1);
+        Sleep(10);
         /* Continuar con el codigo */
         //TODO: implementar metodo draw
-    } while (counter<100);
+    } while (getKey() != ESC);
 }
 
 void Game::initGame() {
-    char touch;
+    int touch;
     bool validKey = false;
     
     // TODO: implementar las opciones 'q' y 'l'
     while(validKey == false){
-        touch = getKey();
+        touch = Tools::getKey();
         if(touch == 'l' || touch == 'p') {
             system("cls");
             m_display->limits();
@@ -70,13 +69,24 @@ void Game::initGameObjVect() {
 
 void Game::update() {
     // TODO: implementar el update
-    moveGameObjects();
+    updateKey();
+    ctrlSpeedAst();
+    updateGameObjects();
 }
 
-void Game::moveGameObjects() {
+void Game::updateGameObjects() {
     // TODO: implementar el update
-    for (auto& gameObject : m_gameObjects) {
-        gameObject->move();
+    size_t size = m_gameObjects.size();
+    for (size_t i = 0; i < size; ++i) {
+        GameObject *obj = m_gameObjects[i];
+        obj->move();
+
+        // Check if game object has been removed
+      // then go back 1 item (next item its at index i, not i+1)
+        if (m_gameObjects.size() != size) {
+            size = m_gameObjects.size();
+            --i;
+      }
     }
 }
 
@@ -85,5 +95,21 @@ void Game::draw() {
     m_display->printStatusBar();
     for (auto& gameObject : m_gameObjects) {
         gameObject->draw();
+    }
+}
+
+
+void Game::updateKey() {
+
+    int directionKey = Tools::getKey();
+    setKey(directionKey);
+    m_ship->setKeyDirection(directionKey);
+}
+
+void Game::ctrlSpeedAst(){
+
+    for (size_t i = 1; i < m_enemis->getNumAst()+1; ++i) {
+        Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjects[i]);
+        if(obj == nullptr)  { obj->downSpeed();   }
     }
 }

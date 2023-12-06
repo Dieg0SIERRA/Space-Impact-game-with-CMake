@@ -120,7 +120,7 @@ int main()
                     display.healthToZero();
                     auto end = std::chrono::system_clock::now();
                     std::chrono::duration<float,std::milli> duration = end - start;
-                    gotoxy(5, 34);
+                    Tools::gotoxy(5, 34);
                     std::cout << "Tiempo de ejecucion " << duration.count() << " segundos." << std::endl;
 
                     if(ship.getLifes() == 0) {
@@ -141,7 +141,7 @@ int main()
 */    
     return 0;
 }
-
+/*
 Collision collision(class Spaceship& ship, class Bullet& bullet, class Asteroid& asteroid)
 {
     int xValueShip = ship.getX();
@@ -166,4 +166,4 @@ Collision collision(class Spaceship& ship, class Bullet& bullet, class Asteroid&
     }
     return result;
 }
-
+*/

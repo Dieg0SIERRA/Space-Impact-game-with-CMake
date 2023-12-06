@@ -17,7 +17,7 @@ void Bullet::move()
     bool bulletOut = false;
     int valueY = getY();
     int valueX = getX();
-    gotoxy(valueX, valueY);      printf("  ");
+    Tools::gotoxy(valueX, valueY);      printf("  ");
 
     if (valueY > 4) {   setY(--valueY);  }
     else if (valueY == 4)    {  bulletOut = true;  }   
@@ -27,16 +27,16 @@ void Bullet::move()
 }
 
 //void Bullet::draw(int x, int y){
-//    gotoxy(x, y);      printf("*");
+//    Tools::gotoxy(x, y);      printf("*");
 //}
 
 void Bullet::draw(){
     int valueY = getY();
     int valueX = getX();
-    gotoxy(valueX, valueY);      printf("*");
+    Tools::gotoxy(valueX, valueY);      printf("*");
 }
 
 void Bullet::erase(int x, int y) 
 {
-    gotoxy(x, y);      printf("  ");
+    Tools::gotoxy(x, y);      printf("  ");
 }
