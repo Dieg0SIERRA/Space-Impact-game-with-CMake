@@ -7,7 +7,7 @@
 #include "asteroid.h"
 
 Asteroid::Asteroid(int x, int y)
-    : m_speed(10), m_size(1)
+    : m_speed(15), m_size(1)
 {
     setX(x);
     setY(y);
@@ -20,16 +20,15 @@ int Asteroid::getSpeed() const { return m_speed; }
 uint8_t Asteroid::getSize() const { return m_size; }
 void Asteroid::downSpeed() { --m_speed; }
 
-//void Asteroid::draw(int x, int y) 
-//{
-//    Tools::gotoxy(x, y);      printf(" %c", 184);
-//}
-
 void Asteroid::draw() 
 {
     int valueY = getY();
     int valueX = getX();
-    Tools::gotoxy(valueX, valueY);      printf(" %c", 184);
+
+    if(valueY >= 3) {
+        Tools::gotoxy(valueX, valueY);
+        printf("%c", 184);
+    }    
 }
 
 void Asteroid::move() 
@@ -38,23 +37,21 @@ void Asteroid::move()
         int valueY = getY();
         int valueX = getX();
 
-        if (valueY > 3 && valueY < 33) {
-            Tools::gotoxy(valueX, valueY);      printf("  ");
-        }
-        if (valueY >= 32)
-        {
-            valueX = rand()%LIM_RIGHT + 3;
-            valueY = 4;
-        }
-        else {
-            ++valueY;
-        }
+        if(valueY >= 3){
+            if (valueY > 3 && valueY < 33) {
+            Tools::gotoxy(valueX, valueY);      printf(" ");
+            }
+            if (valueY >= 32)
+            {
+                valueX = rand()%X_LIMIT + 3;
+                valueY = 4;
+            }
+            else {  ++valueY;   }
 
-        //Sleep(20);
-        //draw(valueX, valueY);
-        setY(valueY);
-        setX(valueX);
-        setSpeed(15);
+            setY(valueY);
+            setX(valueX);
+            setSpeed(15);
+        }
     }
 /*
     int valueY = getY();
@@ -65,7 +62,7 @@ void Asteroid::move()
     }
     if (valueY >= 32)
     {
-        valueX = rand()%LIM_RIGHT + 3;
+        valueX = rand()%X_LIMIT + 3;
         valueY = 4;
     }
     else {
@@ -79,7 +76,9 @@ void Asteroid::move()
 */
 }
 
-void Asteroid::erase(int x, int y) 
+void Asteroid::erase() 
 {
-    Tools::gotoxy(x, y);      printf("  ");
+    int valueY = getY();
+    int valueX = getX();
+    Tools::gotoxy(valueX, valueY);      printf(" ");
 }

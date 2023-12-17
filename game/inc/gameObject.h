@@ -18,7 +18,7 @@ public:
     virtual void move() = 0;
     //virtual void draw(int x, int y) = 0;
     virtual void draw() = 0;
-    virtual void erase(int x, int y) = 0;
+    virtual void erase() = 0;
 
     int getX() const;
     int getY() const;

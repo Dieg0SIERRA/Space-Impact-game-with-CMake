@@ -13,8 +13,8 @@ Spaceship::Spaceship()
 
 void Spaceship::createShip(){
 
-    setX(37);
-    setY(30);
+    setX(X_LIMIT/2);
+    setY(Y_LIMIT-3);
     setHealth('s');
     setLifes('s');
 }
@@ -42,60 +42,40 @@ void Spaceship::draw()
     int valueY = getY();
     int valueX = getX();
 
-    Tools::gotoxy(valueX, valueY);      printf("  %c", 30);
-    Tools::gotoxy(valueX, valueY+1);    printf(" %c%c%c", 40, 207, 41);
-    Tools::gotoxy(valueX, valueY+2);    printf("%c%c %c%c", 30, 190, 190, 30);
+    Tools::gotoxy(valueX, valueY);        printf("%c", 30);
+    Tools::gotoxy(valueX-1, valueY+1);    printf("%c%c%c", 40, 207, 41);
+    Tools::gotoxy(valueX-2, valueY+2);    printf("%c%c %c%c", 30, 190, 190, 30);
     Tools::gotoxy(0, 34);
 }
 
 void Spaceship::move()
 {
-    //int valueY = getY();
-    //int valueX = getX();
-    //char touch;
-
     if (getKeyDirection() != 0){
         int valueY = getY();
         int valueX = getX();
 
-        erase(valueX, valueY);
+        erase();
         if (getKeyDirection() == LEFT && valueX > 3)      valueX--;
-        if (getKeyDirection() == RIGHT && valueX+6 < 77)   valueX++;
+        if (getKeyDirection() == RIGHT && valueX+6 < X_LIMIT)   valueX++;
         if (getKeyDirection() == UP && valueY > 4)      valueY--;
-        if (getKeyDirection() == DOWN && valueY+3 < 33)   valueY++;
+        if (getKeyDirection() == DOWN && valueY+3 < Y_LIMIT)   valueY++;
     
         setX(valueX);
         setY(valueY);
     }
-    
-/*
-    if (_kbhit())    //Fonction to detect if a touch was 
-    {
-        touch = _getch();
-        erase(valueX, valueY);
-        if (touch == 'q' && valueX > 3)      valueX--;
-        if (touch == 'd' && valueX+6 < 77)   valueX++;
-        if (touch == 'z' && valueY > 4)      valueY--;
-        if (touch == 's' && valueY+3 < 33)   valueY++;
-        
-        setX(valueX);
-        setY(valueY);                       
-        //draw(valueX, valueY);
-    }
-*/
 }
 
 void Spaceship::collisionDetection(int x, int y) const
 {}
 
-void Spaceship::erase(int x, int y) 
+void Spaceship::erase() 
 {
-    //int valueY = getY();
-    //int valueX = getX();
+    int valueY = getY();
+    int valueX = getX();
 
-    Tools::gotoxy(x, y);      printf("         ", 30);
-    Tools::gotoxy(x, y+1);    printf("         ", 30);
-    Tools::gotoxy(x, y+2);    printf("         ", 30);
+    Tools::gotoxy(valueX, valueY);        printf("      ", 30);
+    Tools::gotoxy(valueX-1, valueY+1);    printf("      ", 30);
+    Tools::gotoxy(valueX-2, valueY+2);    printf("      ", 30);
 }
 
 void Spaceship::animationShipDie()
@@ -103,19 +83,21 @@ void Spaceship::animationShipDie()
     int valueY = getY();
     int valueX = getX();
 
-    erase(valueX, valueY);
+    erase();
     system("Color 0C");
-    Tools::gotoxy(valueX, valueY);        printf("   **   ");
-    Tools::gotoxy(valueX, valueY+1);      printf("  ****  ");
-    Tools::gotoxy(valueX, valueY+2);      printf("   **   ");
+    Tools::gotoxy(valueX-2, valueY);        printf("  **  ");
+    Tools::gotoxy(valueX-2, valueY+1);      printf(" **** ");
+    Tools::gotoxy(valueX-2, valueY+2);      printf("  **  ");
     Sleep(500);
-    erase(valueX, valueY);
-    Tools::gotoxy(valueX, valueY);        printf(" *  **  *");
-    Tools::gotoxy(valueX, valueY+1);      printf("   ****  ");
-    Tools::gotoxy(valueX, valueY+2);      printf(" *  **  *");
+    erase();
+    Tools::gotoxy(valueX-2, valueY);        printf("*  **  *");
+    Tools::gotoxy(valueX-2, valueY+1);      printf("  ****  ");
+    Tools::gotoxy(valueX-2, valueY+2);      printf("*  **  *");
     Sleep(500);
-    erase(valueX, valueY);
+    erase();
     system("Color 0A");
-    //draw(valueX, valueY);
+    Tools::gotoxy(valueX-2, valueY);        printf("        ");
+    Tools::gotoxy(valueX-2, valueY+1);      printf("        ");
+    Tools::gotoxy(valueX-2, valueY+2);      printf("        ");
     draw();
 }

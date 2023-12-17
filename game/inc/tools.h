@@ -20,6 +20,8 @@
 #include <ctime>
 #include <chrono>
 
+#define X_LIMIT 102
+#define Y_LIMIT 45
 #define LIM_LEFT 3
 #define LIM_RIGHT 76
 //#define RIGHT   77
@@ -33,6 +35,8 @@
 #define ENTER 13
 #define ESC 27
 #define SPACE 32
+
+using MATRIX_Vect = std::vector <std::vector<int>> ;
 
 enum Collision
 {

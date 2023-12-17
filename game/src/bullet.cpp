@@ -7,9 +7,18 @@
 #include "bullet.h"
 
 Bullet::Bullet(int x, int y)
+    :m_bulletOut(false)
 {
     setX(x);
     setY(y);
+}
+
+void Bullet::setBulletOut(bool out) { m_bulletOut = out; }
+bool Bullet::getBulletOut()  { return m_bulletOut; }
+
+Bullet *Bullet::createBullet(int x, int y){
+    Bullet *bullet = new Bullet(x, y);
+    return bullet;
 }
 
 void Bullet::move()
@@ -17,26 +26,34 @@ void Bullet::move()
     bool bulletOut = false;
     int valueY = getY();
     int valueX = getX();
-    Tools::gotoxy(valueX, valueY);      printf("  ");
 
-    if (valueY > 4) {   setY(--valueY);  }
-    else if (valueY == 4)    {  bulletOut = true;  }   
-    
-    //draw(valueX, valueY);
-    //return bulletOut;
+    if(valueY > 3){
+        Tools::gotoxy(valueX, valueY);      printf(" ");
+
+        if (valueY > 4) {   setY(--valueY);  }
+        else if (valueY == 4) {
+            setBulletOut(true);
+            setY(0);                // That's to avoid collision with asteroids
+        }
+    }
 }
-
-//void Bullet::draw(int x, int y){
-//    Tools::gotoxy(x, y);      printf("*");
-//}
 
 void Bullet::draw(){
-    int valueY = getY();
-    int valueX = getX();
-    Tools::gotoxy(valueX, valueY);      printf("*");
+
+    if(getBulletOut() == false) {
+        int valueY = getY();
+        int valueX = getX();
+
+        if(valueY > 3) {
+            Tools::gotoxy(valueX, valueY);
+            printf("*");
+        }
+    }
 }
 
-void Bullet::erase(int x, int y) 
+void Bullet::erase() 
 {
-    Tools::gotoxy(x, y);      printf("  ");
+    int valueY = getY();
+    int valueX = getX();
+    Tools::gotoxy(valueX, valueY);      printf(" ");
 }

@@ -117,7 +117,7 @@ int main()
                     //display.modifHealth('s');
                     //display.printScreen(LIFE);
                     //display.printScreen(HEALTH);
-                    display.healthToZero();
+                    display.resetHealth();
                     auto end = std::chrono::system_clock::now();
                     std::chrono::duration<float,std::milli> duration = end - start;
                     Tools::gotoxy(5, 34);

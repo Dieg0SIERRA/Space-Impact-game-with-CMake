@@ -18,7 +18,7 @@ public:
     virtual void move() override;
     virtual void draw() override ;
     //virtual void draw(int x, int y) override ;
-    virtual void erase(int x, int y) override ;
+    virtual void erase() override ;
 
     void setSpeed(int speed);
     void setSize(uint8_t speed);

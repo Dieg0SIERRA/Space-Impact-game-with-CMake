@@ -9,9 +9,6 @@
 
 #include "tools.h"
 
-#define X_LIMIT 102
-#define Y_LIMIT 45
-
 enum ScreenElement
 {
     SCORE,
@@ -36,10 +33,9 @@ public:
     void modifScore(char value);
     void modifLife(char value);
     void modifLevel(char value);
-    void healthToZero();
+    void resetHealth();
     void printScreen(ScreenElement element);
     void limits();
-    void printEnd();
     void printHealth();
     void init();
     void homeScreen();

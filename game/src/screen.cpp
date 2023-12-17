@@ -35,7 +35,7 @@ void Screen::homeScreen()
 
     Tools::gotoxy(50, 30);   printf(" NEW GAME  (press 'p')");
     Tools::gotoxy(50, 33);   printf(" LOAD GAME (press 'l')");
-    Tools::gotoxy(50, 36);   printf(" EXIT GAME (press 'q')");
+    Tools::gotoxy(50, 36);   printf(" EXIT GAME (press 'Esc')");
 }
 
 void Screen::endScreen(){
@@ -44,7 +44,7 @@ void Screen::endScreen(){
     {
         std::cout << it << "\n";
     }
-    Tools::gotoxy(15, 47); printf("You are a fucking LOOOOOSER!!!!!");
+    Tools::gotoxy(15, Y_LIMIT+2); printf("You are a LOOOOOSER!!!!!");
     Tools::gotoxy(1, 48);
 }
 
@@ -66,12 +66,11 @@ void Screen::modifLife(char value)
     else if(value == '-')    --m_life;
     else if(value == 's')    m_life = MAX_LIFE;
 }
-void Screen::healthToZero()
+void Screen::resetHealth()
 {
     --m_life;
     m_health = MAX_HEALTH;
-    Tools::gotoxy(50, 2);      printf("LIFES %d", m_life);
-    printHealth();
+    Tools::gotoxy(50, 2);
 }
 
 void Screen::printScreen(ScreenElement element)
@@ -101,11 +100,6 @@ void Screen::printScreen(ScreenElement element)
     }
 }
 
-void Screen::printEnd()
-{
-    Tools::gotoxy(70, 2);      printf(" ...                        ");
-}
-
 void Screen::limits()
 {
     for (int i = 2; i < X_LIMIT; i++)
@@ -116,24 +110,22 @@ void Screen::limits()
     for (int i = 4; i < Y_LIMIT; i++)
     {
        Tools::gotoxy(2, i);            printf("%c", 186);
-       Tools::gotoxy(X_LIMIT-2, i);    printf("%c", 186); 
+       Tools::gotoxy(X_LIMIT-1, i);    printf("%c", 186); 
     }
     Tools::gotoxy(2, 3);                  printf("%c", 201);
     Tools::gotoxy(2, Y_LIMIT);            printf("%c", 200);
-    Tools::gotoxy(X_LIMIT-2, 3);          printf("%c", 187);
-    Tools::gotoxy(X_LIMIT-2, Y_LIMIT);    printf("%c", 188);
+    Tools::gotoxy(X_LIMIT-1, 3);          printf("%c", 187);
+    Tools::gotoxy(X_LIMIT-1, Y_LIMIT);    printf("%c", 188);
     printf("\n");
 }
 
 void Screen::printHealth()
 {
     int i, j = 0;
-    Tools::gotoxy(73, 2);      printf("\t");
-    for (i = 0; i < m_health; i++)
-    {
-        Tools::gotoxy(73+j+i, 2);      printf("%c ",3);
-        j++;
-    }
+    Tools::gotoxy(73, 2);      printf("                   ");
+    Tools::gotoxy(73, 2);
+
+    for (i = 0; i < m_health; i++) {    printf("%c ",3);    }
 }
 
 void Screen::printStatusBar(){
