@@ -34,10 +34,8 @@ public:
     void modifLife(char value);
     void modifLevel(char value);
     void resetHealth();
-    void printScreen(ScreenElement element);
     void limits();
     void printHealth();
-    void init();
     void homeScreen();
     void endScreen();
     void printStatusBar();

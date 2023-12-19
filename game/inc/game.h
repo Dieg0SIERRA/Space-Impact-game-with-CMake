@@ -15,10 +15,6 @@
 #include "enemies.h"
 #include "tools.h"
 
-//class Screen;
-
-
-//using VECT_Asteroid = std::vector<Asteroid>;
 using VECT_Bullet = std::vector<Bullet>;
 using VECT_PtrGameObj = std::vector<GameObject*>;
 using MTX_GameObj = std::vector<std::vector<GameObject*>>;
@@ -50,19 +46,15 @@ public:
     Collision collisionDetector();
 
 private:
-    Screen *m_display;
+    Screen    *m_display;
+    Enemies   *m_enemis;
     Spaceship *m_ship;
-    Enemies *m_enemis;
-    VECT_PtrGameObj m_gameObjects;
+    Bullet    *m_bullets;
     MTX_GameObj m_gameObjMatrix;
-    std::vector<std::vector<GameObject*>> m_matrix;
 
     int m_key;
-    //Enemis *m_enemis;
-    uint8_t m_level;
-   
-    Bullet *m_bullets;
     bool m_gameOver;
+    uint8_t m_level;
 };
 
 

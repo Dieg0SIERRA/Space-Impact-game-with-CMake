@@ -31,9 +31,7 @@ public:
     void setLifes(char value);
     int getKeyDirection();
     int getLifes();
-    void createShip();
     void animationShipDie();
-    void collisionDetection(int x, int y) const ;
 
 private:
     int m_lifes;

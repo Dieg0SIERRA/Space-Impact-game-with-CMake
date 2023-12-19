@@ -26,8 +26,6 @@ public:
     uint8_t getSize() const ;
     void downSpeed();
 
-    void collisionDetection(int x, int y) const;
-
 private:
     int m_speed;
     uint8_t m_size;

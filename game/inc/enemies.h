@@ -17,7 +17,7 @@ public:
 
     virtual Asteroid *createAsteroid() override;
     //virtual Obstacle *createObstacle() override;
-    //TODO: implementar los otros tipos de enemigos
+    //TODO: implement the other types of enemies
 
     void setNumAst(int numAst);
     void setNumObst(int numObst);

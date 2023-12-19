@@ -2,7 +2,7 @@
  * @file
  * @brief     Tools class
  * @copyright Diego SIERRA
- *  TODO: search how to use and test compiler explorer https://godbolt.org/ 
+ *  TODO: search how to use and test "compiler explorer" https://godbolt.org/ 
  */
 
 #ifndef TOOLS_H

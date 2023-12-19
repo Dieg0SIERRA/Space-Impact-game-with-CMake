@@ -9,10 +9,6 @@
 Spaceship::Spaceship()
     :   m_lifes(0), m_keyDirection(0)
 {
-}
-
-void Spaceship::createShip(){
-
     setX(X_LIMIT/2);
     setY(Y_LIMIT-3);
     setHealth('s');
@@ -28,14 +24,6 @@ void Spaceship::setLifes(char value)
     else if(value == '-')    --m_lifes;
     else if(value == 's')    m_lifes = MAX_LIFE; 
 }
-
-//void Spaceship::draw(int x, int y)
-//{
-//    Tools::gotoxy(x, y);      printf("  %c", 30);
-//    Tools::gotoxy(x, y+1);    printf(" %c%c%c", 40, 207, 41);
-//    Tools::gotoxy(x, y+2);    printf("%c%c %c%c", 30, 190, 190, 30);
-//    Tools::gotoxy(0, 34);
-//}
 
 void Spaceship::draw()
 {
@@ -64,9 +52,6 @@ void Spaceship::move()
         setY(valueY);
     }
 }
-
-void Spaceship::collisionDetection(int x, int y) const
-{}
 
 void Spaceship::erase() 
 {

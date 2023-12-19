@@ -16,7 +16,6 @@ public:
     //~GameObject() = default;
 
     virtual void move() = 0;
-    //virtual void draw(int x, int y) = 0;
     virtual void draw() = 0;
     virtual void erase() = 0;
 

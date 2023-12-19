@@ -18,7 +18,7 @@ public:
 
     virtual Asteroid *createAsteroid() = 0;
     //virtual Obstacle *createObstacle() = 0;
-    //TODO: implementar los otros tipos de enemigos
+    //TODO: implement the other types of enemies
 
 private:
 };

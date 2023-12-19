@@ -53,27 +53,6 @@ void Asteroid::move()
             setSpeed(15);
         }
     }
-/*
-    int valueY = getY();
-    int valueX = getX();
-
-    if (valueY > 3 && valueY < 33) {
-        Tools::gotoxy(valueX, valueY);      printf("  ");
-    }
-    if (valueY >= 32)
-    {
-        valueX = rand()%X_LIMIT + 3;
-        valueY = 4;
-    }
-    else {
-        ++valueY;
-    }
-        
-    //Sleep(20);
-    //draw(valueX, valueY);
-    setY(valueY);
-    setX(valueX);
-*/
 }
 
 void Asteroid::erase() 

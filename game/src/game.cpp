@@ -7,13 +7,13 @@
 #include "game.h"
 
 Game::Game() 
-    : m_level(1), m_display(new Screen()), m_ship(new Spaceship()), m_enemis(new Enemies()), m_gameOver(false){
+    : m_level(1), m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship()), m_gameOver (false){
     Tools::hideCursor();
     srand(time(0));
 
     m_display->homeScreen();
 
-    //TODO: crear el vinculo de m_level
+    //TODO: create the m_level link
     //m_level = new Level();
     //m_level->init();
 }
@@ -26,7 +26,7 @@ bool Game::getGameOver() const     { return m_gameOver; }
 uint8_t Game::getLevel() const     { return m_level; }
 
 void Game::run() {
-    // TODO:inicializar juego pidiendo la tecla de arriba o abajo y luego enter para el primer nivel
+    // TODO:initialise game by pressing the up or down key and then enter for the first level.
     initGame();
 
     do {
@@ -37,15 +37,14 @@ void Game::run() {
 
     if(getGameOver() == true) {
         m_display->endScreen();
-    }
-    
+    }    
 }
 
 void Game::initGame() {
     int touch;
     bool validKey = false;
     
-    // TODO: implementar las opciones 'q' y 'l'
+    // TODO: implement options 'q' and 'l'.
     while(validKey == false){
         touch = Tools::getKey();
         if(touch == 'l' || touch == 'p') {
@@ -55,32 +54,23 @@ void Game::initGame() {
         }
         else if(touch == ESC)   {validKey = true;}
     }
-    //TODO: depronto es mejor crear una clase player que tenga una nave y las vidas
-    
-    m_ship->createShip();               // Creating a ship    
-    m_enemis->setNumEnemies(2, 0);      // starting with 2 enemies, 0 obstacles
+    //TODO: perhaps it is better to create a player class that has a ship and lives.
 
     initGameObjVect();
 }
 
 void Game::initGameObjVect() 
 {
-    //m_gameObjects.push_back(m_ship);
-//
-    //for(int i = 0; i < m_enemis->getNumAst(); ++i) {
-    //    m_gameObjects.push_back(m_enemis->createAsteroid()); // Creating a enemies 
-    //}
-
-
-    VECT_PtrGameObj gameObj;
-    gameObj.push_back(m_ship);
+    VECT_PtrGameObj gameObj;              
+    
+    gameObj.push_back(m_ship);                          /* Adding ship to game object matrix */
     m_gameObjMatrix.push_back(gameObj);
 
     gameObj.clear();
+    m_enemis->setNumEnemies(2, 0);                      /* starting with 2 enemies, 0 obstacles */
     for(int i = 0; i < m_enemis->getNumAst(); ++i) {
-        gameObj.push_back(m_enemis->createAsteroid()); // Creating a enemies 
+        gameObj.push_back(m_enemis->createAsteroid());  /* Creating a enemies */
     }
-
     m_gameObjMatrix.push_back(gameObj);
     
     /*Initializing bullets in the game objects matrix*/
@@ -90,7 +80,6 @@ void Game::initGameObjVect()
 }
 
 void Game::update() {
-    // TODO: implementar el update
     updateKey();
     ctrlSpeedAst();
     manageBullets();
@@ -99,83 +88,48 @@ void Game::update() {
     drawGameObjects();    
 }
 
-void Game::updateKey() {
-
+void Game::updateKey()
+{
     int directionKey = Tools::getKey();
+    Spaceship *shipObj = dynamic_cast<Spaceship *>(m_gameObjMatrix[0][0]);
+
     setKey(directionKey);
-    m_ship->setKeyDirection(directionKey);
+    shipObj->setKeyDirection(directionKey);
 }
 
-void Game::ctrlSpeedAst(){
-
+void Game::ctrlSpeedAst()
+{
     for (size_t i = 0; i < m_enemis->getNumAst(); ++i) {
-        //Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjects[i]);
         Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjMatrix[1][i]);
         //if(obj == nullptr)  { obj->downSpeed();   }
         obj->downSpeed();
     }
 }
 
-void Game::manageBullets(){
-
+void Game::manageBullets()
+{
     if(getKey() == 'b') {
-        //m_gameObjects.push_back(m_bullets->createBullet(m_ship->getX(), m_ship->getY()));
-        m_gameObjMatrix[2].push_back(m_bullets->createBullet(m_ship->getX(), m_ship->getY()));
+        m_gameObjMatrix[2].push_back(m_bullets->createBullet(m_gameObjMatrix[0][0]->getX(), m_gameObjMatrix[0][0]->getY()));
     }
 }
 
-void Game::moveGameObjects() {
-    // TODO: implementar el update
-
-    //for (auto& gameObject : m_gameObjects) {
-    //    gameObject->move();
-    //}
-
-    //for(int i=0; i<3; ++i) {
-    //    for(int j=0; j<m_gameObjMatrix[i].size(); ++j) {
-    //        m_gameObjMatrix[i][j]->move();
-    //    }
-    //}
-
-    VECT_PtrGameObj gameObj;
+void Game::moveGameObjects()
+{
     for(int i=0; i<3; ++i) {
         for(int j=0; j<m_gameObjMatrix[i].size(); ++j) {
             m_gameObjMatrix[i][j]->move();
         }
     }
-
-/*
-    size_t size = m_gameObjects.size();
-    for (size_t i = 0; i < size; ++i) {
-        GameObject *obj = m_gameObjects[i];
-
-        obj->move();
-        //if(obj->getY() > 0) {   obj->move();    }
-        //else {  m_gameObjects.erase(m_gameObjects.begin() + i);    }
-
-        // Check if game object has been removed
-        // then go back 1 item (next item its at index i, not i+1)
-        if (m_gameObjects.size() != size) {
-            size = m_gameObjects.size();
-            --i;
-        }
-    }
-*/
 }
 
-void Game::drawGameObjects() {    
-    //TODO: mejorar esto, es solo una idea
-    
-    //for (auto& gameObject : m_gameObjects) {
-    //    gameObject->draw();
-    //}
-
+void Game::drawGameObjects()
+{    
+    //TODO: improve this, it's just an idea
     for(int i=0; i<m_gameObjMatrix.size(); ++i) {
         for(int j=0; j<m_gameObjMatrix[i].size(); ++j) {
             m_gameObjMatrix[i][j]->draw();
         }
     }
-
     m_display->printStatusBar();
 }
 
@@ -189,39 +143,8 @@ void Game::timeWait() {
    t = clock();
 }
 
-/*
-Collision Game::collisionDetector() {
-    Collision result = Collision::NONE;
-    size_t size = m_gameObjects.size();
-    int columns = 2;
-    int numAst = m_enemis->getNumAst();
-    int numbul = m_gameObjects.size() - m_enemis->getNumAst() - 1;
-    MATRIX_Vect AstPosition(numAst, std::vector<int>(2));
-    MATRIX_Vect BulPosition(numbul, std::vector<int>(2));
-
-    Tools::gotoxy(107, 5);  std::cout<<"Ast_1  in X : "<<m_gameObjects[1]->getX();
-    Tools::gotoxy(107, 6);  std::cout<<"Ast_22 in X : "<<m_gameObjects[2]->getX();
-
-    for (int ast = 1; ast <= numAst; ++ast) {
-        for(int bul = numAst+1; bul < numbul; ++bul){
-            Tools::gotoxy(107, 8);  std::cout<<"Bul in X : "<<m_gameObjects[bul]->getX();            
-
-            if(m_gameObjects[ast]->getX() == m_gameObjects[bul]->getX() && m_gameObjects[ast]->getY() == m_gameObjects[bul]->getY()){
-                //m_gameObjects.erase(m_gameObjects.begin() + bul);
-                //m_gameObjects.erase(m_gameObjects.begin() + ast);
-                m_gameObjects[ast]->setY(0);
-                m_gameObjects[bul]->setY(0);
-                m_gameObjects[ast]->erase();
-                m_gameObjects[bul]->erase();
-                
-                result = Collision::Asteroid_Destroyed;
-            }
-        }
-    }
-    return result;
-}
-*/
-Collision Game::collisionDetector() {
+Collision Game::collisionDetector()
+{
     Collision result = Collision::NONE;
     int numAst = m_gameObjMatrix[1].size();
     int numbul = m_gameObjMatrix[2].size();
@@ -249,10 +172,9 @@ Collision Game::collisionDetector() {
     return result;
 }
 
-void Game::updateGameObjects(Collision status){
-
-    //size_t size = m_gameObjects.size();
-
+void Game::updateGameObjects(Collision status)
+{
+    // TODO: to improve this, it would be possible to eliminate the casting.
     Spaceship *shipObj = dynamic_cast<Spaceship *>(m_gameObjMatrix[0][0]);
 
     if (status == Collision::Asteroid_Destroyed) {
@@ -271,24 +193,11 @@ void Game::updateGameObjects(Collision status){
             m_display->resetHealth();
 
             if(shipObj->getLifes() == 0) {
-                Tools::gotoxy(107, 15);  std::cout<<"lifes : "<<shipObj->getLifes();
                 setGameOver(true);
                 
             }
         }
     }
-
-    
-    //for (size_t i = 0; i < size; ++i) {
-    //    GameObject *obj = m_gameObjects[i];
-//
-    //    if(obj->getY() == 0) {  m_gameObjects.erase(m_gameObjects.begin() + i); }
-    //    if (m_gameObjects.size() != size) {
-    //        //size = m_gameObjects.size();
-    //        --size;
-    //        --i;
-    //    }
-    //}
 
     int size = m_gameObjMatrix[1].size();
 

@@ -20,12 +20,6 @@ int Screen::getLife() const {    return m_life;    }
 
 int Screen::getHealth() const {    return m_health;    }
 
-void Screen::init()
-{
-    //system("cls");
-    //system("Color 0A");
-}
-
 void Screen::homeScreen()
 {
     system("cls");
@@ -50,19 +44,20 @@ void Screen::endScreen(){
 
 void Screen::modifHealth(char value) 
 {
-    if(value == '+')    ++m_health;
+    if(value == '+')         ++m_health;
     else if(value == '-')    --m_health;
     else if(value == 's')    m_health = MAX_HEALTH;
 }
 
-void Screen::modifScore(char value) {    
+void Screen::modifScore(char value)
+{    
     m_score += value;
-    Tools::gotoxy(20, 2);      printf("Score %d", m_score);
-    }
+    Tools::gotoxy(20, 2);
+}
 
 void Screen::modifLife(char value)
 {
-    if(value == '+')    ++m_life;
+    if(value == '+')         ++m_life;
     else if(value == '-')    --m_life;
     else if(value == 's')    m_life = MAX_LIFE;
 }
@@ -71,33 +66,6 @@ void Screen::resetHealth()
     --m_life;
     m_health = MAX_HEALTH;
     Tools::gotoxy(50, 2);
-}
-
-void Screen::printScreen(ScreenElement element)
-{
-    switch (element)
-    {
-    case SCORE:
-        Tools::gotoxy(20, 2);      printf("Score %d", m_score);
-        break;
-    case LEVEL:
-        Tools::gotoxy(10, 2);      printf("LEVEL %d", m_level);
-        break;
-    case LIFE:
-        Tools::gotoxy(50, 2);      printf("LIFES %d", m_life);
-        break;
-    case HEALTH:
-        printHealth();
-        break;
-    case ALL:
-        Tools::gotoxy(10, 2);      printf("LEVEL %d", m_level);
-        Tools::gotoxy(20, 2);      printf("Score %d", m_score);
-        Tools::gotoxy(50, 2);      printf("LIFES %d", m_life);
-        Tools::gotoxy(63, 2);      printf("Health ");
-        printHealth();
-    default:
-        break;
-    }
 }
 
 void Screen::limits()

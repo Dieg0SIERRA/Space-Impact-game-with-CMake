@@ -2,7 +2,7 @@
  * @file
  * @brief     Animations class
  * @copyright Diego SIERRA
- * @ mas acerca de ascii art: https://www.asciiart.eu/image-to-ascii
+ * @ More about ascii art: https://www.asciiart.eu/image-to-ascii
  * @ https://www.remove.bg/fr
  */
 

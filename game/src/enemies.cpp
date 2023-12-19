@@ -18,9 +18,6 @@ int Enemies::getNumObst() const { return m_numObst; }
 
 Asteroid *Enemies::createAsteroid(){
     Asteroid *ast = new Asteroid(rand()%X_LIMIT+3, 3);
-    //for(int i = 0; i < m_numAst; ++i) {
-    //    ast.push_back(Asteroid(rand()%X_LIMIT+3, 3));
-    //}
     return ast;
 }
 
