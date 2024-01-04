@@ -16,7 +16,7 @@ class FactoryEnemies
 {
 public:
 
-    virtual Asteroid *createAsteroid() = 0;
+    virtual Asteroid *createAsteroid(std::vector<int> params) = 0;
     //virtual Obstacle *createObstacle() = 0;
     //TODO: implement the other types of enemies
 

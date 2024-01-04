@@ -4,15 +4,13 @@
  * @copyright Diego SIERRA
  */
 
-#include "asteroid.h"
-#include "gameObject.h"
-#include "bullet.h"
-#include "screen.h"
-#include "spaceShip.h"
+//#include "asteroid.h"
+//#include "gameObject.h"
+//#include "bullet.h"
+//#include "screen.h"
+//#include "spaceShip.h"
 #include "game.h"
-#include "tools.h"
-
-Collision collision(class Spaceship& ship, class Bullet& bullet, class Asteroid& asteroid);
+//#include "tools.h"
 
 int main()
 {

@@ -11,13 +11,30 @@ Enemies::Enemies()
 {
 }
 
+void Enemies::incNumAst() { ++m_numAst; }
 void Enemies::setNumAst(int numAst) { m_numAst = numAst; }
 void Enemies::setNumObst(int numObst) { m_numObst = numObst; }
 int Enemies::getNumAst() const { return m_numAst; }
 int Enemies::getNumObst() const { return m_numObst; }
 
-Asteroid *Enemies::createAsteroid(){
-    Asteroid *ast = new Asteroid(rand()%X_LIMIT+3, 3);
+Asteroid *Enemies::createAsteroid(std::vector<int> params)
+{
+    int x = rand()%X_LIMIT + 3;
+    Asteroid *ast = NULL;
+
+    if(x > X_LIMIT) {   x = X_LIMIT;    }
+    ast = new Asteroid(x, 3, 1, 1);
+
+    //if(params[Ast_hp_1] == 1) {
+    //    ast = new Asteroid(x, 3, params[Ast_hp_1], params//[Ast_spd_1]);
+    //}
+    //else if(params[Ast_hp_2] == 2) {
+    //    ast = new Asteroid(x, 3, params[Ast_hp_2], params//[Ast_spd_2]);
+    //}
+    //else if(params[Ast_hp_3] == 3) {
+    //	ast = new Asteroid(x, 3, params[Ast_hp_2], params//[Ast_spd_2]);
+    //}    
+
     return ast;
 }
 

@@ -20,8 +20,8 @@
 #include <ctime>
 #include <chrono>
 
-#define X_LIMIT 102
-#define Y_LIMIT 45
+#define X_LIMIT 103
+#define Y_LIMIT 44
 #define LIM_LEFT 3
 #define LIM_RIGHT 76
 //#define RIGHT   77
@@ -35,8 +35,7 @@
 #define ENTER 13
 #define ESC 27
 #define SPACE 32
-
-using MATRIX_Vect = std::vector <std::vector<int>> ;
+#define FPS_120 120
 
 enum Collision
 {
@@ -45,6 +44,21 @@ enum Collision
     Spaceship_impacted,
     Lost_life,
     Game_Over
+};
+
+enum elements_matrix_enemies{
+    score = 0,
+    Ast_num_1,
+    Ast_hp_1,
+    Ast_spd_1,
+    Ast_num_2,
+    Ast_hp_2,
+    Ast_spd_2,
+    Ast_num_3,
+    Ast_hp_3,
+    Ast_spd_3,
+    Obst_num,
+    Obst_spd
 };
 
 class Tools
@@ -57,6 +71,8 @@ class Tools
 
     //getting key from keyboard
     static int getKey();
+
+    static void timeWait(long fps);
 };
 
 #endif

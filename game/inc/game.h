@@ -25,12 +25,14 @@ public:
     Game();
     ~Game() = default;
 
-    void setLevel(uint8_t value);
+    void upLevel();
     void setKey(int value);
     void setGameOver(bool value);
+    void setCtrlSpeedAstLevel(uint8_t value);
     int  getKey() const;
     bool getGameOver() const;
     uint8_t getLevel() const;
+    uint8_t getCtrlSpeedAstLevel() const;
 
     void run();
     void initGame();
@@ -39,11 +41,13 @@ public:
     void initGameObjVect();
     void updateKey();
     void moveGameObjects();
-    void timeWait();
+    void timeWait(long fps);
     void ctrlSpeedAst();
     void manageBullets();
     void updateGameObjects(Collision status);
     Collision collisionDetector();
+    void level();
+    void updateLevelObj();
 
 private:
     Screen    *m_display;
@@ -54,8 +58,8 @@ private:
 
     int m_key;
     bool m_gameOver;
-    uint8_t m_level;
+    uint8_t m_levelGame;
+    uint8_t m_ctrlSpeedAstLevel;
 };
-
 
 #endif

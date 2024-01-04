@@ -10,7 +10,7 @@ Spaceship::Spaceship()
     :   m_lifes(0), m_keyDirection(0)
 {
     setX(X_LIMIT/2);
-    setY(Y_LIMIT-3);
+    setY(Y_LIMIT-2);
     setHealth('s');
     setLifes('s');
 }

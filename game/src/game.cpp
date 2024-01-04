@@ -5,9 +5,11 @@
  */
 
 #include "game.h"
+#include "difficultyLevel.h"
+
 
 Game::Game() 
-    : m_level(1), m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship()), m_gameOver (false){
+    : m_levelGame(1), m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship()), m_gameOver (false), m_ctrlSpeedAstLevel(ASTEROID_SPEED){
     Tools::hideCursor();
     srand(time(0));
 
@@ -18,12 +20,16 @@ Game::Game()
     //m_level->init();
 }
 
-void Game::setLevel(uint8_t value) { m_level = value; }
+void Game::upLevel()               { ++m_levelGame; }
 void Game::setKey(int value)       { m_key = value; }
 void Game::setGameOver(bool value) { m_gameOver = value; }
 int  Game::getKey() const          { return m_key; }
 bool Game::getGameOver() const     { return m_gameOver; }
-uint8_t Game::getLevel() const     { return m_level; }
+uint8_t Game::getLevel() const     { return m_levelGame; }
+uint8_t Game::getCtrlSpeedAstLevel() const { return m_ctrlSpeedAstLevel; }
+void Game::setCtrlSpeedAstLevel(uint8_t value) { m_ctrlSpeedAstLevel = value; }
+
+void Game::timeWait(long fps)      {Tools::timeWait(fps); }
 
 void Game::run() {
     // TODO:initialise game by pressing the up or down key and then enter for the first level.
@@ -31,8 +37,9 @@ void Game::run() {
 
     do {
         update();        
-        Sleep(20);
-        //timeWait();
+        //Sleep(20);
+        level();
+        timeWait(FPS_120);
     } while (getKey() != ESC && getGameOver() == false);
 
     if(getGameOver() == true) {
@@ -69,7 +76,7 @@ void Game::initGameObjVect()
     gameObj.clear();
     m_enemis->setNumEnemies(2, 0);                      /* starting with 2 enemies, 0 obstacles */
     for(int i = 0; i < m_enemis->getNumAst(); ++i) {
-        gameObj.push_back(m_enemis->createAsteroid());  /* Creating a enemies */
+        gameObj.push_back(m_enemis->createAsteroid(matrixEnemies[0]));  /* Creating a enemies */
     }
     m_gameObjMatrix.push_back(gameObj);
     
@@ -81,11 +88,20 @@ void Game::initGameObjVect()
 
 void Game::update() {
     updateKey();
-    ctrlSpeedAst();
     manageBullets();
     updateGameObjects(collisionDetector());
     moveGameObjects();
-    drawGameObjects();    
+    drawGameObjects();
+    
+    //for (size_t i = 0; i < m_enemis->getNumAst(); ++i) {
+    //    Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjMatrix[1][i]);
+//
+    //    Tools::gotoxy(107, 5+i);  std::cout<<"speed:       ";
+    //    Tools::gotoxy(107, 5+i);  std::cout<<"speed: " << obj->getSpeed();
+    //    
+    //}
+
+    ctrlSpeedAst();
 }
 
 void Game::updateKey()
@@ -103,6 +119,13 @@ void Game::ctrlSpeedAst()
         Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjMatrix[1][i]);
         //if(obj == nullptr)  { obj->downSpeed();   }
         obj->downSpeed();
+        if(obj->getSpeed() == 0) {  
+            obj->setSpeed(getCtrlSpeedAstLevel());  
+            
+            uint8_t speed = obj->getSpeed();
+            Tools::gotoxy(107, 5+i);  std::cout<<"speed:       ";
+            Tools::gotoxy(107, 5+i);  printf("speed: %d", speed);
+        }
     }
 }
 
@@ -123,7 +146,7 @@ void Game::moveGameObjects()
 }
 
 void Game::drawGameObjects()
-{    
+{
     //TODO: improve this, it's just an idea
     for(int i=0; i<m_gameObjMatrix.size(); ++i) {
         for(int j=0; j<m_gameObjMatrix[i].size(); ++j) {
@@ -131,16 +154,6 @@ void Game::drawGameObjects()
         }
     }
     m_display->printStatusBar();
-}
-
-void Game::timeWait() {
-   static long   t = clock();
-   const float fps = 60.0f;
-
-   long toWait = t + CLOCKS_PER_SEC / fps - clock();
-   if (toWait > 0)  {   Sleep(toWait/1000);   }      
-
-   t = clock();
 }
 
 Collision Game::collisionDetector()
@@ -179,12 +192,12 @@ void Game::updateGameObjects(Collision status)
 
     if (status == Collision::Asteroid_Destroyed) {
         m_display->modifScore(POINT);
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid());
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
     }
     else if (status == Collision::Spaceship_impacted) {
         shipObj->setHealth('-');
         m_display->modifHealth('-');
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid());
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
 
         if(shipObj->getHealth() == 0) {
             shipObj->setLifes('-');
@@ -194,7 +207,6 @@ void Game::updateGameObjects(Collision status)
 
             if(shipObj->getLifes() == 0) {
                 setGameOver(true);
-                
             }
         }
     }
@@ -217,4 +229,57 @@ void Game::updateGameObjects(Collision status)
             --i;
         }
     }
+}
+
+void Game::level()
+{
+    int _score = m_display->getScore();
+    int level = getLevel();
+
+
+    /*
+    if vector[level][score] >= score
+        updateLevel()
+    __________________________________
+    En ctrlSpeedAst(): -> hay q meter varion ciclos 'for' para afectar diff speeds de los diff ast
+
+    En updateGameObjects(): -> hay q condicionar cada 'if' para recuperar el tipo de ast y asi 
+                               poder crear uno del mismo tipo
+
+    modificar el constructor de Ast para pasarle tambien la Health del Ast
+    
+    */
+    
+    if(score == 10 && getLevel() == 1) {
+        upLevel();
+        updateLevelObj();
+    }
+    else if(score == 20 && getLevel() == 2) {
+        upLevel();
+        updateLevelObj();
+    }
+    else if(score == 30 && getLevel() == 3) {
+        upLevel();
+        updateLevelObj();
+    }
+    else if(score == 40 && getLevel() == 4) {
+        upLevel();
+        m_display->levelUp(getLevel());
+        setCtrlSpeedAstLevel(14);
+
+        m_enemis->setNumEnemies(4, 0);                      // adding 1 enemies, 0 obstacles 
+        for(int i = 0; i < 4; ++i) 
+            m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[level]));
+    }
+    Tools::gotoxy(107, 10);  std::cout<<"Level:       ";
+    Tools::gotoxy(107, 10);  printf("upLevel: %d", getLevel());
+}
+
+void Game::updateLevelObj()
+{
+    //if(getLevel() == 2 || getLevel() == 3){
+    //    setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 5);
+    //}
+    m_display->levelUp(getLevel());
+    setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 5);
 }

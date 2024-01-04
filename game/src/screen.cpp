@@ -20,6 +20,8 @@ int Screen::getLife() const {    return m_life;    }
 
 int Screen::getHealth() const {    return m_health;    }
 
+void Screen::levelUp(uint8_t value) {    m_level = value;    }
+
 void Screen::homeScreen()
 {
     system("cls");
@@ -38,7 +40,7 @@ void Screen::endScreen(){
     {
         std::cout << it << "\n";
     }
-    Tools::gotoxy(15, Y_LIMIT+2); printf("You are a LOOOOOSER!!!!!");
+    Tools::gotoxy(15, Y_LIMIT+3); printf("You are a LOOOOOSER!!!!!");
     Tools::gotoxy(1, 48);
 }
 
@@ -70,20 +72,20 @@ void Screen::resetHealth()
 
 void Screen::limits()
 {
-    for (int i = 2; i < X_LIMIT; i++)
+    for (int i = 2; i < X_LIMIT+1; i++)
     {
        Tools::gotoxy(i, 3);        printf("%c", 205);
-       Tools::gotoxy(i, Y_LIMIT);  printf("%c", 205); 
+       Tools::gotoxy(i, Y_LIMIT+1);  printf("%c", 205); 
     }
-    for (int i = 4; i < Y_LIMIT; i++)
+    for (int i = 4; i < Y_LIMIT+1; i++)
     {
        Tools::gotoxy(2, i);            printf("%c", 186);
-       Tools::gotoxy(X_LIMIT-1, i);    printf("%c", 186); 
+       Tools::gotoxy(X_LIMIT+1, i);    printf("%c", 186); 
     }
     Tools::gotoxy(2, 3);                  printf("%c", 201);
-    Tools::gotoxy(2, Y_LIMIT);            printf("%c", 200);
-    Tools::gotoxy(X_LIMIT-1, 3);          printf("%c", 187);
-    Tools::gotoxy(X_LIMIT-1, Y_LIMIT);    printf("%c", 188);
+    Tools::gotoxy(2, Y_LIMIT+1);            printf("%c", 200);
+    Tools::gotoxy(X_LIMIT+1, 3);          printf("%c", 187);
+    Tools::gotoxy(X_LIMIT+1, Y_LIMIT+1);    printf("%c", 188);
     printf("\n");
 }
 

@@ -32,7 +32,7 @@ public:
     void modifHealth(char value);
     void modifScore(char value);
     void modifLife(char value);
-    void modifLevel(char value);
+    void levelUp(uint8_t value);
     void resetHealth();
     void limits();
     void printHealth();
@@ -41,7 +41,7 @@ public:
     void printStatusBar();
 
 private:
-    int m_level;
+    uint8_t m_level;
     int m_score;
     int m_life;
     int m_health;

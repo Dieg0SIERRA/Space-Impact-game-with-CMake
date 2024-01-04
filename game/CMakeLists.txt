@@ -23,6 +23,7 @@ set(HEADERS
     inc/enemies.h
     inc/factoryEnemies.h
     inc/animations.h
+    inc/difficultyLevel.h
 )
 
 add_library(game ${SRCS} ${HEADERS})

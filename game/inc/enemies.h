@@ -15,10 +15,11 @@ public:
     Enemies();
     ~Enemies() = default;
 
-    virtual Asteroid *createAsteroid() override;
+    virtual Asteroid *createAsteroid(std::vector<int> params) override;
     //virtual Obstacle *createObstacle() override;
     //TODO: implement the other types of enemies
 
+    void incNumAst();
     void setNumAst(int numAst);
     void setNumObst(int numObst);
     int getNumAst() const;
