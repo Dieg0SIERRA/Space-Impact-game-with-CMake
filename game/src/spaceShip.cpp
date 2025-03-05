@@ -7,7 +7,6 @@
 #include "spaceShip.h"
 
 Spaceship::Spaceship()
-    :   m_lifes(0), m_keyDirection(0)
 {
     setX(X_LIMIT/2);
     setY(Y_LIMIT-2);
@@ -38,7 +37,8 @@ void Spaceship::draw()
 
 void Spaceship::move()
 {
-    if (getKeyDirection() != 0){
+    if (getKeyDirection() != 0)
+    {
         int valueY = getY();
         int valueX = getX();
 

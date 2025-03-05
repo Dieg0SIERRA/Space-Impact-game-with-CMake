@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief     Basic elements class
+ * @brief     Game Object class
  * @copyright Diego SIERRA
  */
 

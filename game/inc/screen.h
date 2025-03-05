@@ -41,10 +41,10 @@ public:
     void printStatusBar();
 
 private:
-    uint8_t m_level;
-    int m_score;
-    int m_life;
-    int m_health;
+    uint8_t m_level{1};
+    int m_score{0};
+    int m_life{MAX_LIFE};
+    int m_health{MAX_HEALTH};
 };
 
 #endif

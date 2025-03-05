@@ -29,8 +29,8 @@ public:
     void downSpeed();
 
 private:
-    uint8_t m_speed;
-    uint8_t m_size;
+    uint8_t m_speed{};
+    uint8_t m_size{1};
 };
 
 #endif

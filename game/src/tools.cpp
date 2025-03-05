@@ -36,7 +36,8 @@ void Tools::hideCursor()
     SetConsoleCursorInfo(hCon, &cci);
 }
 
-int Tools::getKey() {
+int Tools::getKey()
+{
     if (_kbhit()) {  return _getch(); }
     else    return ' ';
 }

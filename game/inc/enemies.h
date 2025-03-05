@@ -28,8 +28,8 @@ public:
 
 private:
     VECT_Asteroid ast;
-    int m_numAst = 0;
-    int m_numObst = 0;
+    int m_numAst{2};
+    int m_numObst{0};
 };
 
 #endif

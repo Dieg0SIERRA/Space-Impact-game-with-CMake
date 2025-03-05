@@ -4,13 +4,7 @@
  * @copyright Diego SIERRA
  */
 
-//#include "asteroid.h"
-//#include "gameObject.h"
-//#include "bullet.h"
-//#include "screen.h"
-//#include "spaceShip.h"
 #include "game.h"
-//#include "tools.h"
 
 int main()
 {

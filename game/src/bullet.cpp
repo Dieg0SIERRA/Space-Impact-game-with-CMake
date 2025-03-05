@@ -7,7 +7,6 @@
 #include "bullet.h"
 
 Bullet::Bullet(int x, int y)
-    :m_bulletOut(false)
 {
     setX(x);
     setY(y);
@@ -16,18 +15,20 @@ Bullet::Bullet(int x, int y)
 void Bullet::setBulletOut(bool out) { m_bulletOut = out; }
 bool Bullet::getBulletOut()  { return m_bulletOut; }
 
-Bullet *Bullet::createBullet(int x, int y){
+Bullet *Bullet::createBullet(int x, int y)
+{
     Bullet *bullet = new Bullet(x, y);
     return bullet;
 }
 
 void Bullet::move()
 {
-    bool bulletOut = false;
+    bool bulletOut{false};
     int valueY = getY();
     int valueX = getX();
 
-    if(valueY > 3){
+    if(valueY > 3)
+    {
         Tools::gotoxy(valueX, valueY);      printf(" ");
 
         if (valueY > 4) {   setY(--valueY);  }
@@ -38,9 +39,11 @@ void Bullet::move()
     }
 }
 
-void Bullet::draw(){
+void Bullet::draw()
+{
 
-    if(getBulletOut() == false) {
+    if(getBulletOut() == false)
+    {
         int valueY = getY();
         int valueX = getX();
 

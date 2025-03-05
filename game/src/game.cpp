@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief     Tools class
+ * @brief     Game class
  * @copyright Diego SIERRA
  */
 
@@ -9,7 +9,8 @@
 
 
 Game::Game() 
-    : m_levelGame(1), m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship()), m_gameOver (false), m_ctrlSpeedAstLevel(ASTEROID_SPEED){
+    : m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship())
+    {
     Tools::hideCursor();
     srand(time(0));
 
@@ -31,10 +32,10 @@ void Game::setCtrlSpeedAstLevel(uint8_t value) { m_ctrlSpeedAstLevel = value; }
 
 void Game::timeWait(long fps)      {Tools::timeWait(fps); }
 
-void Game::run() {
+void Game::run()
+{
     // TODO:initialise game by pressing the up or down key and then enter for the first level.
     initGame();
-
     do {
         update();        
         //Sleep(20);
@@ -48,13 +49,15 @@ void Game::run() {
 }
 
 void Game::initGame() {
-    int touch;
-    bool validKey = false;
+    int touch{};
+    bool validKey{false};
     
     // TODO: implement options 'q' and 'l'.
-    while(validKey == false){
+    while(validKey == false)
+    {
         touch = Tools::getKey();
-        if(touch == 'l' || touch == 'p') {
+        if(touch == 'l' || touch == 'p')
+        {
             system("cls");
             m_display->limits();
             validKey = true;
@@ -68,7 +71,7 @@ void Game::initGame() {
 
 void Game::initGameObjVect() 
 {
-    VECT_PtrGameObj gameObj;              
+    VECT_PtrGameObj gameObj{};              
     
     gameObj.push_back(m_ship);                          /* Adding ship to game object matrix */
     m_gameObjMatrix.push_back(gameObj);
@@ -115,7 +118,8 @@ void Game::updateKey()
 
 void Game::ctrlSpeedAst()
 {
-    for (size_t i = 0; i < m_enemis->getNumAst(); ++i) {
+    for (size_t i = 0; i < m_enemis->getNumAst(); ++i)
+    {
         Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjMatrix[1][i]);
         //if(obj == nullptr)  { obj->downSpeed();   }
         obj->downSpeed();
@@ -168,14 +172,16 @@ Collision Game::collisionDetector()
     
     for(int j = 0; j < numAst; ++j){
         for(int i=0; i<numbul; ++i){
-            if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[2][i]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[2][i]->getY()){
+            if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[2][i]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[2][i]->getY())
+            {
                 m_gameObjMatrix[1][j]->erase();
                 m_gameObjMatrix[1][j]->setY(0);                
                 m_gameObjMatrix[2][i]->erase();
                 m_gameObjMatrix[2][i]->setY(0);
                 result = Collision::Asteroid_Destroyed;
             }
-            else if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()){
+            else if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY())
+            {
                 m_gameObjMatrix[1][j]->erase();
                 m_gameObjMatrix[1][j]->setY(0);
                 result = Collision::Spaceship_impacted;
@@ -190,31 +196,33 @@ void Game::updateGameObjects(Collision status)
     // TODO: to improve this, it would be possible to eliminate the casting.
     Spaceship *shipObj = dynamic_cast<Spaceship *>(m_gameObjMatrix[0][0]);
 
-    if (status == Collision::Asteroid_Destroyed) {
+    if (status == Collision::Asteroid_Destroyed)
+    {
         m_display->modifScore(POINT);
         m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
     }
-    else if (status == Collision::Spaceship_impacted) {
+    else if (status == Collision::Spaceship_impacted)
+    {
         shipObj->setHealth('-');
         m_display->modifHealth('-');
         m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
 
-        if(shipObj->getHealth() == 0) {
+        if(shipObj->getHealth() == 0)
+        {
             shipObj->setLifes('-');
             shipObj->setHealth('s');
             shipObj->animationShipDie();
             m_display->resetHealth();
 
-            if(shipObj->getLifes() == 0) {
-                setGameOver(true);
-            }
+            if(shipObj->getLifes() == 0)    { setGameOver(true);}
         }
     }
 
     int size = m_gameObjMatrix[1].size();
 
     for(int i=0; i<size; ++i) {
-        if(m_gameObjMatrix[1][i]->getY() == 0) {
+        if(m_gameObjMatrix[1][i]->getY() == 0)
+        {
             m_gameObjMatrix[1].erase(m_gameObjMatrix[1].begin() + i);
             --size;
             --i;
@@ -223,7 +231,8 @@ void Game::updateGameObjects(Collision status)
 
     size = m_gameObjMatrix[2].size();
     for(int i=0; i<size; ++i) {
-        if(m_gameObjMatrix[2][i]->getY() == 0) {
+        if(m_gameObjMatrix[2][i]->getY() == 0)
+        {
             m_gameObjMatrix[2].erase(m_gameObjMatrix[2].begin() + i);
             --size;
             --i;
@@ -262,7 +271,8 @@ void Game::level()
         upLevel();
         updateLevelObj();
     }
-    else if(score == 40 && getLevel() == 4) {
+    else if(score == 40 && getLevel() == 4)
+    {
         upLevel();
         m_display->levelUp(getLevel());
         setCtrlSpeedAstLevel(14);

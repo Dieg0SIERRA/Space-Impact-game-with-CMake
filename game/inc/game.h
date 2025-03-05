@@ -56,10 +56,10 @@ private:
     Bullet    *m_bullets;
     MTX_GameObj m_gameObjMatrix;
 
-    int m_key;
-    bool m_gameOver;
-    uint8_t m_levelGame;
-    uint8_t m_ctrlSpeedAstLevel;
+    int m_key{};
+    bool m_gameOver{false};
+    uint8_t m_levelGame{1};
+    uint8_t m_ctrlSpeedAstLevel{ASTEROID_SPEED};
 };
 
 #endif

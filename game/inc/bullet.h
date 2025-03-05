@@ -25,7 +25,7 @@ public:
     Bullet *createBullet(int x, int y);
 
 private:
-    bool m_bulletOut;
+    bool m_bulletOut{false};
 };
 
 #endif

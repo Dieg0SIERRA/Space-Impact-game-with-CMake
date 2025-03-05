@@ -34,8 +34,8 @@ public:
     void animationShipDie();
 
 private:
-    int m_lifes;
-    int m_keyDirection;
+    int m_lifes{0};
+    int m_keyDirection{0};
     
 };
 #endif
