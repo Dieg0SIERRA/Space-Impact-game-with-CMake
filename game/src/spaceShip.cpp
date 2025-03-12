@@ -58,9 +58,9 @@ void Spaceship::erase()
     int valueY = getY();
     int valueX = getX();
 
-    Tools::gotoxy(valueX, valueY);        printf("      ", 30);
-    Tools::gotoxy(valueX-1, valueY+1);    printf("      ", 30);
-    Tools::gotoxy(valueX-2, valueY+2);    printf("      ", 30);
+    Tools::gotoxy(valueX, valueY);        printf("      ");
+    Tools::gotoxy(valueX-1, valueY+1);    printf("      ");
+    Tools::gotoxy(valueX-2, valueY+2);    printf("      ");
 }
 
 void Spaceship::animationShipDie()

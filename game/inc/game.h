@@ -14,6 +14,8 @@
 #include "spaceShip.h"
 #include "enemies.h"
 #include "tools.h"
+#include <random>
+
 
 using VECT_Bullet = std::vector<Bullet>;
 using VECT_PtrGameObj = std::vector<GameObject*>;

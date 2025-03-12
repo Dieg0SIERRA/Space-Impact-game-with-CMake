@@ -11,9 +11,10 @@
 Game::Game() 
     : m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship())
     {
-    Tools::hideCursor();
-    srand(time(0));
+    std::random_device rd;          // To generate random numbers
+    std::mt19937 gen(rd());
 
+    Tools::hideCursor();
     m_display->homeScreen();
 
     //TODO: create the m_level link
@@ -118,7 +119,7 @@ void Game::updateKey()
 
 void Game::ctrlSpeedAst()
 {
-    for (size_t i = 0; i < m_enemis->getNumAst(); ++i)
+    for (int i = 0; i < m_enemis->getNumAst(); ++i)
     {
         Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjMatrix[1][i]);
         //if(obj == nullptr)  { obj->downSpeed();   }
@@ -163,15 +164,15 @@ void Game::drawGameObjects()
 Collision Game::collisionDetector()
 {
     Collision result = Collision::NONE;
-    int numAst = m_gameObjMatrix[1].size();
-    int numbul = m_gameObjMatrix[2].size();
+    size_t numAst = m_gameObjMatrix[1].size();
+    size_t numbul = m_gameObjMatrix[2].size();
 
     int ast_x = m_gameObjMatrix[1][0]->getX();
     int bul_x = m_gameObjMatrix[2][0]->getX();
     int bul_y = m_gameObjMatrix[2][0]->getY();
     
-    for(int j = 0; j < numAst; ++j){
-        for(int i=0; i<numbul; ++i){
+    for(size_t j = 0; j < numAst; ++j){
+        for(size_t i=0; i<numbul; ++i){
             if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[2][i]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[2][i]->getY())
             {
                 m_gameObjMatrix[1][j]->erase();
@@ -218,9 +219,9 @@ void Game::updateGameObjects(Collision status)
         }
     }
 
-    int size = m_gameObjMatrix[1].size();
+    size_t size = m_gameObjMatrix[1].size();
 
-    for(int i=0; i<size; ++i) {
+    for(size_t i=0; i<size; ++i) {
         if(m_gameObjMatrix[1][i]->getY() == 0)
         {
             m_gameObjMatrix[1].erase(m_gameObjMatrix[1].begin() + i);
@@ -230,7 +231,7 @@ void Game::updateGameObjects(Collision status)
     }
 
     size = m_gameObjMatrix[2].size();
-    for(int i=0; i<size; ++i) {
+    for(size_t i=0; i<size; ++i) {
         if(m_gameObjMatrix[2][i]->getY() == 0)
         {
             m_gameObjMatrix[2].erase(m_gameObjMatrix[2].begin() + i);
