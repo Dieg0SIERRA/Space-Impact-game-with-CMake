@@ -10,7 +10,7 @@
 
 Game::Game() 
     : m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship())
-    {
+{
     std::random_device rd;          // To generate random numbers
     std::mt19937 gen(rd());
 
@@ -38,8 +38,7 @@ void Game::run()
     // TODO:initialise game by pressing the up or down key and then enter for the first level.
     initGame();
     do {
-        update();        
-        //Sleep(20);
+        update();
         level();
         timeWait(FPS_120);
     } while (getKey() != ESC && getGameOver() == false);
@@ -49,7 +48,8 @@ void Game::run()
     }    
 }
 
-void Game::initGame() {
+void Game::initGame()
+{
     int touch{};
     bool validKey{false};
     
@@ -93,7 +93,9 @@ void Game::initGameObjVect()
 void Game::update() {
     updateKey();
     manageBullets();
+    Tools::gotoxy(107, 30);  std::cout<<"asteroides antes: " << m_gameObjMatrix[1].size();
     updateGameObjects(collisionDetector());
+    Tools::gotoxy(107, 31);  std::cout<<"asteroides despues: " << m_gameObjMatrix[1].size();
     moveGameObjects();
     drawGameObjects();
     
@@ -195,7 +197,7 @@ Collision Game::collisionDetector()
 void Game::updateGameObjects(Collision status)
 {
     // TODO: to improve this, it would be possible to eliminate the casting.
-    Spaceship *shipObj = dynamic_cast<Spaceship *>(m_gameObjMatrix[0][0]);
+    auto *shipObj = dynamic_cast<Spaceship *>(m_gameObjMatrix[0][0]);
 
     if (status == Collision::Asteroid_Destroyed)
     {
@@ -215,7 +217,9 @@ void Game::updateGameObjects(Collision status)
             shipObj->animationShipDie();
             m_display->resetHealth();
 
-            if(shipObj->getLifes() == 0)    { setGameOver(true);}
+            if(shipObj->getLifes() == 0){
+                setGameOver(true);
+            }
         }
     }
 
@@ -259,38 +263,33 @@ void Game::level()
     modificar el constructor de Ast para pasarle tambien la Health del Ast
     
     */
-    
-    if(score == 10 && getLevel() == 1) {
-        upLevel();
-        updateLevelObj();
-    }
-    else if(score == 20 && getLevel() == 2) {
-        upLevel();
-        updateLevelObj();
-    }
-    else if(score == 30 && getLevel() == 3) {
-        upLevel();
-        updateLevelObj();
-    }
-    else if(score == 40 && getLevel() == 4)
-    {
-        upLevel();
-        m_display->levelUp(getLevel());
-        setCtrlSpeedAstLevel(14);
 
-        m_enemis->setNumEnemies(4, 0);                      // adding 1 enemies, 0 obstacles 
-        for(int i = 0; i < 4; ++i) 
-            m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[level]));
+    for(int i = 1; i < 4; ++i)
+    {
+        if(_score == 10*i && level == i)
+        {
+            upLevel();
+            updateLevelObj();
+            i = 4;
+        }
+        if(level == 4 && m_enemis->getNumAst() == 2)
+        {
+            for(auto & k : m_gameObjMatrix[1]) {
+                k->erase();
+            }
+            setCtrlSpeedAstLevel(14);
+            m_enemis->setNumEnemies(3, 0);
+            m_gameObjMatrix[1].clear();
+
+            for(int j = 0; j < 3; ++j) {
+                m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
+            }
+        }
     }
-    Tools::gotoxy(107, 10);  std::cout<<"Level:       ";
-    Tools::gotoxy(107, 10);  printf("upLevel: %d", getLevel());
 }
 
 void Game::updateLevelObj()
 {
-    //if(getLevel() == 2 || getLevel() == 3){
-    //    setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 5);
-    //}
     m_display->levelUp(getLevel());
-    setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 5);
+    setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 4);
 }
