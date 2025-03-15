@@ -16,6 +16,7 @@
 #include "tools.h"
 #include <random>
 
+#define MAX_LEVEL 100
 
 using VECT_Bullet = std::vector<Bullet>;
 using VECT_PtrGameObj = std::vector<GameObject*>;

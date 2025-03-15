@@ -183,7 +183,11 @@ Collision Game::collisionDetector()
                 m_gameObjMatrix[2][i]->setY(0);
                 result = Collision::Asteroid_Destroyed;
             }
-            else if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY())
+            else if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY() ||
+                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()+1 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+1 ||
+                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()+2 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+2 ||
+                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()-1 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+1 ||
+                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()-2 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+1 )
             {
                 m_gameObjMatrix[1][j]->erase();
                 m_gameObjMatrix[1][j]->setY(0);
@@ -264,13 +268,13 @@ void Game::level()
     
     */
 
-    for(int i = 1; i < 4; ++i)
+    for(int i = 1; i < MAX_LEVEL; ++i)
     {
         if(_score == 10*i && level == i)
         {
             upLevel();
             updateLevelObj();
-            i = 4;
+            i = MAX_LEVEL;
         }
         if(level == 4 && m_enemis->getNumAst() == 2)
         {

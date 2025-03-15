@@ -19,7 +19,7 @@ int Spaceship::getKeyDirection() {   return m_keyDirection;   }
 void Spaceship::setKeyDirection(int value){ m_keyDirection = value; }
 void Spaceship::setLifes(char value)
 {   
-    if(value == '+')    ++m_lifes;
+    if(value == '+')         ++m_lifes;
     else if(value == '-')    --m_lifes;
     else if(value == 's')    m_lifes = MAX_LIFE; 
 }
@@ -43,11 +43,11 @@ void Spaceship::move()
         int valueX = getX();
 
         erase();
-        if (getKeyDirection() == LEFT && valueX > 3)      valueX--;
-        if (getKeyDirection() == RIGHT && valueX+6 < X_LIMIT)   valueX++;
-        if (getKeyDirection() == UP && valueY > 4)      valueY--;
-        if (getKeyDirection() == DOWN && valueY+3 < Y_LIMIT)   valueY++;
-    
+        if (getKeyDirection() == LEFT && valueX > 5)           valueX--;
+        if (getKeyDirection() == RIGHT && valueX+2 < X_LIMIT)  valueX++;
+        if (getKeyDirection() == UP && valueY > 4)             valueY--;
+        if (getKeyDirection() == DOWN && valueY+2 < Y_LIMIT)   valueY++;
+
         setX(valueX);
         setY(valueY);
     }
@@ -58,9 +58,9 @@ void Spaceship::erase()
     int valueY = getY();
     int valueX = getX();
 
-    Tools::gotoxy(valueX, valueY);        printf("      ");
-    Tools::gotoxy(valueX-1, valueY+1);    printf("      ");
-    Tools::gotoxy(valueX-2, valueY+2);    printf("      ");
+    Tools::gotoxy(valueX, valueY);        printf(" ");
+    Tools::gotoxy(valueX-1, valueY+1);    printf("   ");
+    Tools::gotoxy(valueX-2, valueY+2);    printf("     ");
 }
 
 void Spaceship::animationShipDie()
