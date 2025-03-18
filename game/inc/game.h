@@ -50,7 +50,6 @@ public:
     void updateGameObjects(Collision status);
     Collision collisionDetector();
     void level();
-    void updateLevelObj();
 
 private:
     Screen    *m_display;
@@ -63,6 +62,7 @@ private:
     bool m_gameOver{false};
     uint8_t m_levelGame{1};
     uint8_t m_ctrlSpeedAstLevel{ASTEROID_SPEED};
+    uint8_t m_count{8};
 };
 
 #endif

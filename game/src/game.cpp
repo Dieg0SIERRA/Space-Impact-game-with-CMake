@@ -93,20 +93,9 @@ void Game::initGameObjVect()
 void Game::update() {
     updateKey();
     manageBullets();
-    Tools::gotoxy(107, 30);  std::cout<<"asteroides antes: " << m_gameObjMatrix[1].size();
     updateGameObjects(collisionDetector());
-    Tools::gotoxy(107, 31);  std::cout<<"asteroides despues: " << m_gameObjMatrix[1].size();
     moveGameObjects();
     drawGameObjects();
-    
-    //for (size_t i = 0; i < m_enemis->getNumAst(); ++i) {
-    //    Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjMatrix[1][i]);
-//
-    //    Tools::gotoxy(107, 5+i);  std::cout<<"speed:       ";
-    //    Tools::gotoxy(107, 5+i);  std::cout<<"speed: " << obj->getSpeed();
-    //    
-    //}
-
     ctrlSpeedAst();
 }
 
@@ -124,14 +113,9 @@ void Game::ctrlSpeedAst()
     for (int i = 0; i < m_enemis->getNumAst(); ++i)
     {
         Asteroid *obj = dynamic_cast<Asteroid *>(m_gameObjMatrix[1][i]);
-        //if(obj == nullptr)  { obj->downSpeed();   }
         obj->downSpeed();
         if(obj->getSpeed() == 0) {  
-            obj->setSpeed(getCtrlSpeedAstLevel());  
-            
-            uint8_t speed = obj->getSpeed();
-            Tools::gotoxy(107, 5+i);  std::cout<<"speed:       ";
-            Tools::gotoxy(107, 5+i);  printf("speed: %d", speed);
+            obj->setSpeed(getCtrlSpeedAstLevel());
         }
     }
 }
@@ -251,8 +235,10 @@ void Game::updateGameObjects(Collision status)
 
 void Game::level()
 {
+    Tools::gotoxy(107, 31);  std::cout<<"asteroides : " << m_gameObjMatrix[1].size();
     int _score = m_display->getScore();
-    int level = getLevel();
+    const int currentLevel = getLevel();
+
 
 
     /*
@@ -268,32 +254,21 @@ void Game::level()
     
     */
 
-    for(int i = 1; i < MAX_LEVEL; ++i)
+    if(_score == currentLevel * 10)
     {
-        if(_score == 10*i && level == i)
-        {
-            upLevel();
-            updateLevelObj();
-            i = MAX_LEVEL;
-        }
-        if(level == 4 && m_enemis->getNumAst() == 2)
-        {
-            for(auto & k : m_gameObjMatrix[1]) {
-                k->erase();
-            }
-            setCtrlSpeedAstLevel(14);
-            m_enemis->setNumEnemies(3, 0);
-            m_gameObjMatrix[1].clear();
-
-            for(int j = 0; j < 3; ++j) {
-                m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
-            }
-        }
+        upLevel();
+        m_display->levelUp(getLevel());
     }
-}
-
-void Game::updateLevelObj()
-{
-    m_display->levelUp(getLevel());
-    setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 4);
+    if(currentLevel >= 2 && currentLevel <= 6 && m_enemis->getNumAst() == currentLevel)
+    {
+        m_enemis->incNumAst();
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
+        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 2);
+    }
+    if(currentLevel > 7 && currentLevel <= 10 && currentLevel == m_count)
+    {
+        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 1);
+        ++m_count;
+    }
+    Tools::gotoxy(107, 20); printf("new speed: %d", getCtrlSpeedAstLevel());
 }
