@@ -152,30 +152,39 @@ Collision Game::collisionDetector()
     Collision result = Collision::NONE;
     size_t numAst = m_gameObjMatrix[1].size();
     size_t numbul = m_gameObjMatrix[2].size();
-
-    int ast_x = m_gameObjMatrix[1][0]->getX();
-    int bul_x = m_gameObjMatrix[2][0]->getX();
-    int bul_y = m_gameObjMatrix[2][0]->getY();
     
-    for(size_t j = 0; j < numAst; ++j){
-        for(size_t i=0; i<numbul; ++i){
-            if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[2][i]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[2][i]->getY())
+    for(size_t j = 0; j < numAst; ++j)
+    {
+        auto* asteroid = m_gameObjMatrix[1][j];
+        int astX = asteroid->getX();
+        int astY = asteroid->getY();
+
+        for(size_t i=0; i<numbul; ++i)
+        {
+            auto* bullet = m_gameObjMatrix[2][i];
+            auto spaceShipX = m_gameObjMatrix[0][0]->getX();
+            auto spaceShipY = m_gameObjMatrix[0][0]->getY();
+
+            //if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[2][i]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[2][i]->getY())
+            if(astX == bullet->getX() && astY == bullet->getY())
             {
-                m_gameObjMatrix[1][j]->erase();
-                m_gameObjMatrix[1][j]->setY(0);                
-                m_gameObjMatrix[2][i]->erase();
-                m_gameObjMatrix[2][i]->setY(0);
+                asteroid->erase();
+                asteroid->setY(0);
+                bullet->erase();
+                bullet->setY(0);
                 result = Collision::Asteroid_Destroyed;
+                break;
             }
-            else if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY() ||
-                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()+1 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+1 ||
-                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()+2 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+2 ||
-                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()-1 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+1 ||
-                    m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[0][0]->getX()-2 && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[0][0]->getY()+1 )
+            if(astX == spaceShipX   && astY == spaceShipY   ||
+                    astX == spaceShipX+1 && astY == spaceShipY+1 ||
+                    astX == spaceShipX+2 && astY == spaceShipY+2 ||
+                    astX == spaceShipX-1 && astY == spaceShipY+1 ||
+                    astX == spaceShipX-2 && astY == spaceShipY+1 )
             {
-                m_gameObjMatrix[1][j]->erase();
-                m_gameObjMatrix[1][j]->setY(0);
+                asteroid->erase();
+                asteroid->setY(0);
                 result = Collision::Spaceship_impacted;
+                break;
             }
         }
     }
@@ -190,13 +199,13 @@ void Game::updateGameObjects(Collision status)
     if (status == Collision::Asteroid_Destroyed)
     {
         m_display->modifScore(POINT);
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[0]));
     }
     else if (status == Collision::Spaceship_impacted)
     {
         shipObj->setHealth('-');
         m_display->modifHealth('-');
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[0]));
 
         if(shipObj->getHealth() == 0)
         {
@@ -262,7 +271,7 @@ void Game::level()
     if(currentLevel >= 2 && currentLevel <= 6 && m_enemis->getNumAst() == currentLevel)
     {
         m_enemis->incNumAst();
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[0]));
         setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 2);
     }
     if(currentLevel > 7 && currentLevel <= 10 && currentLevel == m_count)
@@ -270,5 +279,17 @@ void Game::level()
         setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 1);
         ++m_count;
     }
+    if(currentLevel == 11 && currentLevel == m_count)
+    {
+        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 1);
+        ++m_count;
+    }
+    if(currentLevel > 11 && currentLevel <= 15 && currentLevel == m_count)
+    {
+        m_enemis->incNumObst();
+        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 1);
+        ++m_count;
+    }
+    Tools::gotoxy(107, 20); std::cout << "                   ";
     Tools::gotoxy(107, 20); printf("new speed: %d", getCtrlSpeedAstLevel());
 }

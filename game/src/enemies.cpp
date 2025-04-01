@@ -10,6 +10,7 @@ Enemies::Enemies()
 {}
 
 void Enemies::incNumAst() { ++m_numAst; }
+void Enemies::incNumObst() { ++m_numObst; }
 void Enemies::setNumAst(int numAst)   { m_numAst = numAst; }
 void Enemies::setNumObst(int numObst) { m_numObst = numObst; }
 int Enemies::getNumAst() const  { return m_numAst; }

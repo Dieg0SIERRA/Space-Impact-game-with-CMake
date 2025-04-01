@@ -30,7 +30,7 @@ public:
     int getHealth() const;
 
     void modifHealth(char value);
-    void modifScore(char value);
+    void modifScore(int value);
     void modifLife(char value);
     void levelUp(uint8_t value);
     void resetHealth();

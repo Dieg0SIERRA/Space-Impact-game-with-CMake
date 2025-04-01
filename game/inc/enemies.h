@@ -20,6 +20,7 @@ public:
     //TODO: implement the other types of enemies
 
     void incNumAst();
+    void incNumObst();
     void setNumAst(int numAst);
     void setNumObst(int numObst);
     int getNumAst() const;

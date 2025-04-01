@@ -47,7 +47,7 @@ void Screen::modifHealth(char value)
     else if(value == 's')    m_health = MAX_HEALTH;
 }
 
-void Screen::modifScore(char value)
+void Screen::modifScore(int value)
 {    
     m_score += value;
     Tools::gotoxy(20, 2);
