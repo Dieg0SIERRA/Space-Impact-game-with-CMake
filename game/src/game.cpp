@@ -244,10 +244,8 @@ void Game::updateGameObjects(Collision status)
 
 void Game::level()
 {
-    Tools::gotoxy(107, 31);  std::cout<<"asteroides : " << m_gameObjMatrix[1].size();
     int _score = m_display->getScore();
     const int currentLevel = getLevel();
-
 
 
     /*
@@ -263,33 +261,19 @@ void Game::level()
     
     */
 
-    if(_score == currentLevel * 10)
+    if (_score == matrixEnemies[currentLevel][SCORE_LV])
     {
+        if (m_enemis->getNumAst() == matrixEnemies[currentLevel][NUMB_ASTEROID])
+        {
+            m_enemis->setNumAst(matrixEnemies[currentLevel][NEW_NUMB_ASTEROID]);
+            m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[currentLevel]));
+        }
+        setCtrlSpeedAstLevel(matrixEnemies[currentLevel][SPEED_ASTEROID]);
+
         upLevel();
         m_display->levelUp(getLevel());
     }
-    if(currentLevel >= 2 && currentLevel <= 6 && m_enemis->getNumAst() == currentLevel)
-    {
-        m_enemis->incNumAst();
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[0]));
-        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 2);
-    }
-    if(currentLevel > 7 && currentLevel <= 10 && currentLevel == m_count)
-    {
-        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 1);
-        ++m_count;
-    }
-    if(currentLevel == 11 && currentLevel == m_count)
-    {
-        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 1);
-        ++m_count;
-    }
-    if(currentLevel > 11 && currentLevel <= 15 && currentLevel == m_count)
-    {
-        m_enemis->incNumObst();
-        setCtrlSpeedAstLevel(getCtrlSpeedAstLevel() - 1);
-        ++m_count;
-    }
     Tools::gotoxy(107, 20); std::cout << "                   ";
     Tools::gotoxy(107, 20); printf("new speed: %d", getCtrlSpeedAstLevel());
+    Tools::gotoxy(107, 22);  std::cout<<"asteroides : " << m_gameObjMatrix[1].size();
 }
