@@ -8,6 +8,7 @@
 #define ENEMIES_H
 
 #include "factoryEnemies.h"
+#include "difficultyLevel.h"
 
 class Enemies : public FactoryEnemies 
 {

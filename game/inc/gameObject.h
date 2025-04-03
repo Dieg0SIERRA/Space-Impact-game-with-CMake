@@ -24,12 +24,13 @@ public:
     int getHealth() const;
     void setX(int value);
     void setY(int value);
-    void setHealth(char value);
+    void setHealth(uint8_t value);
+    void modifHealth(char value);
 
 private:
-    int m_x;
-    int m_y;
-    uint8_t m_health;    
+    int m_x{};
+    int m_y{};
+    uint8_t m_health{0};
 };
 
 #endif

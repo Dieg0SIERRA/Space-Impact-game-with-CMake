@@ -18,7 +18,8 @@ int GameObject::getHealth() const {    return m_health;    }
 
 void GameObject::setX(int value) {    m_x = value;    }
 void GameObject::setY(int value) {    m_y = value;    }
-void GameObject::setHealth(char value)
+void GameObject::setHealth(uint8_t value) {    m_health = value;    }
+void GameObject::modifHealth(char value)
 {
     if(value == '+')    ++m_health;
     else if(value == '-')    --m_health;

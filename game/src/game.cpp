@@ -5,8 +5,6 @@
  */
 
 #include "game.h"
-#include "difficultyLevel.h"
-
 
 Game::Game() 
     : m_display(new Screen()), m_enemis(new Enemies()), m_ship(new Spaceship())
@@ -165,14 +163,17 @@ Collision Game::collisionDetector()
             auto spaceShipX = m_gameObjMatrix[0][0]->getX();
             auto spaceShipY = m_gameObjMatrix[0][0]->getY();
 
-            //if(m_gameObjMatrix[1][j]->getX() == m_gameObjMatrix[2][i]->getX() && m_gameObjMatrix[1][j]->getY() == m_gameObjMatrix[2][i]->getY())
             if(astX == bullet->getX() && astY == bullet->getY())
             {
-                asteroid->erase();
-                asteroid->setY(0);
+                asteroid->modifHealth('-');
+                if (asteroid->getHealth() == 0)
+                {
+                    asteroid->erase();
+                    asteroid->setY(0);
+                    result = Collision::Asteroid_Destroyed;
+                }
                 bullet->erase();
                 bullet->setY(0);
-                result = Collision::Asteroid_Destroyed;
                 break;
             }
             if(astX == spaceShipX   && astY == spaceShipY   ||
@@ -199,18 +200,18 @@ void Game::updateGameObjects(Collision status)
     if (status == Collision::Asteroid_Destroyed)
     {
         m_display->modifScore(POINT);
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[0]));
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
     }
     else if (status == Collision::Spaceship_impacted)
     {
-        shipObj->setHealth('-');
+        shipObj->modifHealth('-');
         m_display->modifHealth('-');
-        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[0]));
+        m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[getLevel()]));
 
         if(shipObj->getHealth() == 0)
         {
             shipObj->setLifes('-');
-            shipObj->setHealth('s');
+            shipObj->modifHealth('s');
             shipObj->animationShipDie();
             m_display->resetHealth();
 
@@ -269,6 +270,11 @@ void Game::level()
             m_gameObjMatrix[1].push_back(m_enemis->createAsteroid(matrixEnemies[currentLevel]));
         }
         setCtrlSpeedAstLevel(matrixEnemies[currentLevel][SPEED_ASTEROID]);
+
+        // if (matrixEnemies[currentLevel][NEW_NUMB_ASTEROID] == matrixEnemies[currentLevel][NUMB_ASTEROID])
+        // {
+        //     m_enemis->setNumAst(matrixEnemies[currentLevel][NEW_NUMB_ASTEROID]);
+        // }
 
         upLevel();
         m_display->levelUp(getLevel());

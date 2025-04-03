@@ -10,7 +10,7 @@ Spaceship::Spaceship()
 {
     setX(X_LIMIT/2);
     setY(Y_LIMIT-2);
-    setHealth('s');
+    modifHealth('s');
     setLifes('s');
 }
 
