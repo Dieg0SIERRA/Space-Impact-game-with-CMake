@@ -6,12 +6,13 @@
 
 #include "asteroid.h"
 
-Asteroid::Asteroid(int x, int y, uint8_t health, uint8_t speed)
+Asteroid::Asteroid(int x, int y, uint8_t health, uint8_t speed, uint8_t size)
 {
     setX(x);
     setY(y);
     setSpeed(speed);
     setHealth(health);
+    m_size = size;
 }
 
 void Asteroid::setSpeed(uint8_t speed) { m_speed = speed; }
@@ -26,9 +27,39 @@ void Asteroid::draw()
     int valueY = getY();
     int valueX = getX();
 
-    if(valueY > 3) {
-        Tools::gotoxy(valueX, valueY);    printf("%c", 184);
-    }    
+    // 220 = _, 223 = ¯, 169 = ®, 184 = ©, 176 = ¦, 177 = ¦, 178 = ¦, 219 = ¦
+
+    if (m_size == 1)    // 1 shoot to kill
+    {
+        if(valueY > 3) {
+            Tools::gotoxy(valueX, valueY);    printf("%c", 184);
+        }
+    }
+    if (m_size == 2)    // 2 shoots to kill
+    {
+        if(valueY > 3) {
+            Tools::gotoxy(valueX, valueY);    printf("%c", 176);
+        }
+    }
+    if (m_size == 3)    // 3 shoots to kill
+    {
+        if(valueY > 3) {
+            Tools::gotoxy(valueX, valueY);    printf("%c", 220);
+        }
+    }
+    if (m_size == 4)    // 4 shoots to kill
+    {
+        if(valueY > 3) {
+            Tools::gotoxy(valueX, valueY);    printf("%c", 178);
+        }
+    }
+    if (m_size == 5)     // 5 shoots to kill
+    {
+        if(valueY > 3) {
+            Tools::gotoxy(valueX, valueY);    printf("%c""%c", 176, 177);
+            //Tools::gotoxy(valueX, valueY);    printf("%c""%c", 223, 223);
+        }
+    }
 }
 
 void Asteroid::move() 

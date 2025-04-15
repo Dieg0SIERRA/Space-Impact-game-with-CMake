@@ -24,7 +24,7 @@ Asteroid *Enemies::createAsteroid(std::vector<int> params)
     if(x > X_LIMIT) {   x = X_LIMIT;    }
     //ast = new Asteroid(x, 3, 1, 1);
 
-    ast = new Asteroid(x, 3, params[HEALTH_ASTEROID], params[SPEED_ASTEROID]);
+    ast = new Asteroid(x, 3, params[HEALTH_ASTEROID], params[SPEED_ASTEROID], params[SIZE_ASTEROID]);
 
 
     //if(params[Ast_hp_1] == 1) {

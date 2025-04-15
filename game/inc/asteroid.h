@@ -14,7 +14,7 @@
 class Asteroid : public GameObject
 {
 public:
-    Asteroid(int x, int y, uint8_t health, uint8_t speed);
+    Asteroid(int x, int y, uint8_t health, uint8_t speed, uint8_t size);
     ~Asteroid() = default;
 
     virtual void move() override;
