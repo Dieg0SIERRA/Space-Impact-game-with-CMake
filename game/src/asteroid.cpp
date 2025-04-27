@@ -63,6 +63,19 @@ void Asteroid::draw()
             Tools::gotoxy(valueX, valueY);    printf("%c%c", 223, 223);
         }
     }
+    if (m_size == 20)     // 10 shoots to kill
+    {
+        if(valueY > 3) {
+            if (valueY > 4 && valueY < Y_LIMIT)
+            {
+                Tools::gotoxy(valueX-1, valueY-1);    printf("%c%c%c", 250, 47, 250);
+                Tools::gotoxy(valueX-1, valueY+1);    printf("%c%c%c", 250, 92, 250);
+            }
+            else if (valueY == Y_LIMIT)
+            {
+                Tools::gotoxy(valueX-1, valueY-1);    printf("%c%c%c", 250, 47, 250);
+            }
+            Tools::gotoxy(valueX-1, valueY);    printf("%c%c%c", 45, 157, 45);
         }
     }
 }
@@ -84,6 +97,19 @@ void Asteroid::move()
                         Tools::gotoxy(valueX, valueY-1);      printf("  ");
                     }
                     Tools::gotoxy(valueX, valueY);      printf("  ");
+                }
+                else if (m_size == 20)
+                {
+                    if (valueY > 4 && valueY < Y_LIMIT)
+                    {
+                        Tools::gotoxy(valueX-1, valueY-1);      printf("   ");
+                        Tools::gotoxy(valueX-1, valueY+1);      printf("   ");
+                    }
+                    else if (valueY == Y_LIMIT)
+                    {
+                        Tools::gotoxy(valueX-1, valueY-1);      printf("   ");
+                    }
+                    Tools::gotoxy(valueX-1, valueY);      printf("   ");
                 }
                 else
                 {
@@ -116,6 +142,15 @@ void Asteroid::erase()
             Tools::gotoxy(valueX, valueY-1);      printf("  ");
         }
         Tools::gotoxy(valueX, valueY);      printf("  ");
+    }
+    else if (m_size == 20)
+    {
+        if (valueY > 4)
+        {
+            Tools::gotoxy(valueX-1, valueY-1);      printf("   ");
+            Tools::gotoxy(valueX-1, valueY+1);      printf("   ");
+        }
+        Tools::gotoxy(valueX-1, valueY);      printf("   ");
     }
     else
     {

@@ -186,7 +186,10 @@ Collision Game::collisionDetector()
                     (ast->getSize() == 10 && (astX+1 == spaceShipX   && astY == spaceShipY    ||
                                               astX+1 == spaceShipX-1 && astY == spaceShipY+1  ||
                                               astX+1 == spaceShipX-2 && astY == spaceShipY+1  ||
-                                              astX+1 == spaceShipX-2 && astY-1 == spaceShipY+1))  )
+                                              astX+1 == spaceShipX-2 && astY-1 == spaceShipY+1)) ||
+
+                                              (ast->getSize() == 20 && ((astX-1 == spaceShipX+2 && (astY-1 == spaceShipY+2 || astY == spaceShipY+2 || astY+1 == spaceShipY+2)) ||
+                                              (astX+1 == spaceShipX-2 && (astY-1 == spaceShipY+2 || astY == spaceShipY+2 || astY+1 == spaceShipY+2))  ) ) )
             {
                 asteroid->erase();
                 asteroid->setY(0);
