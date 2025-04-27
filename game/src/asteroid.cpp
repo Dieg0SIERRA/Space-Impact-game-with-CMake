@@ -53,11 +53,16 @@ void Asteroid::draw()
             Tools::gotoxy(valueX, valueY);    printf("%c", 178);
         }
     }
-    if (m_size == 5)     // 5 shoots to kill
+    if (m_size == 10)     // 10 shoots to kill
     {
         if(valueY > 3) {
-            Tools::gotoxy(valueX, valueY);    printf("%c""%c", 176, 177);
-            //Tools::gotoxy(valueX, valueY);    printf("%c""%c", 223, 223);
+            if (valueY > 4)
+            {
+                Tools::gotoxy(valueX, valueY-1);    printf("%c%c", 220, 220);
+            }
+            Tools::gotoxy(valueX, valueY);    printf("%c%c", 223, 223);
+        }
+    }
         }
     }
 }
@@ -72,7 +77,18 @@ void Asteroid::move()
         if(valueY >= 3)
         {
             if (valueY > 3 && valueY <= Y_LIMIT) {
-                Tools::gotoxy(valueX, valueY);      printf(" ");
+                if (m_size == 10)
+                {
+                    if (valueY > 4)
+                    {
+                        Tools::gotoxy(valueX, valueY-1);      printf("  ");
+                    }
+                    Tools::gotoxy(valueX, valueY);      printf("  ");
+                }
+                else
+                {
+                    Tools::gotoxy(valueX, valueY);      printf(" ");
+                }
             }
             if (valueY >= Y_LIMIT)
             {
@@ -92,5 +108,17 @@ void Asteroid::erase()
 {
     int valueY = getY();
     int valueX = getX();
-    Tools::gotoxy(valueX, valueY);      printf(" ");
+
+    if (m_size == 10)
+    {
+        if (valueY > 4)
+        {
+            Tools::gotoxy(valueX, valueY-1);      printf("  ");
+        }
+        Tools::gotoxy(valueX, valueY);      printf("  ");
+    }
+    else
+    {
+        Tools::gotoxy(valueX, valueY);      printf(" ");
+    }
 }

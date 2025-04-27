@@ -156,6 +156,7 @@ Collision Game::collisionDetector()
         auto* asteroid = m_gameObjMatrix[1][j];
         int astX = asteroid->getX();
         int astY = asteroid->getY();
+        auto* ast = dynamic_cast<Asteroid *>(asteroid);
 
         for(size_t i=0; i<numbul; ++i)
         {
@@ -163,7 +164,8 @@ Collision Game::collisionDetector()
             auto spaceShipX = m_gameObjMatrix[0][0]->getX();
             auto spaceShipY = m_gameObjMatrix[0][0]->getY();
 
-            if(astX == bullet->getX() && astY == bullet->getY())
+            if((astX == bullet->getX() && astY == bullet->getY()) ||
+                ast->getSize() == 10 && (astX+1 == bullet->getX() && astY == bullet->getY()))
             {
                 asteroid->modifHealth('-');
                 if (asteroid->getHealth() == 0)
@@ -180,7 +182,11 @@ Collision Game::collisionDetector()
                     astX == spaceShipX+1 && astY == spaceShipY+1 ||
                     astX == spaceShipX+2 && astY == spaceShipY+2 ||
                     astX == spaceShipX-1 && astY == spaceShipY+1 ||
-                    astX == spaceShipX-2 && astY == spaceShipY+1 )
+                    astX == spaceShipX-2 && astY == spaceShipY+1 ||
+                    (ast->getSize() == 10 && (astX+1 == spaceShipX   && astY == spaceShipY    ||
+                                              astX+1 == spaceShipX-1 && astY == spaceShipY+1  ||
+                                              astX+1 == spaceShipX-2 && astY == spaceShipY+1  ||
+                                              astX+1 == spaceShipX-2 && astY-1 == spaceShipY+1))  )
             {
                 asteroid->erase();
                 asteroid->setY(0);
