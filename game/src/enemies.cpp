@@ -22,20 +22,15 @@ Asteroid *Enemies::createAsteroid(std::vector<int> params)
     Asteroid *ast {nullptr};
 
     if(x > X_LIMIT) {   x = X_LIMIT;    }
-    //ast = new Asteroid(x, 3, 1, 1);
 
-    ast = new Asteroid(x, 3, params[HEALTH_ASTEROID], params[SPEED_ASTEROID], params[SIZE_ASTEROID]);
-
-
-    //if(params[Ast_hp_1] == 1) {
-    //    ast = new Asteroid(x, 3, params[Ast_hp_1], params//[Ast_spd_1]);
-    //}
-    //else if(params[Ast_hp_2] == 2) {
-    //    ast = new Asteroid(x, 3, params[Ast_hp_2], params//[Ast_spd_2]);
-    //}
-    //else if(params[Ast_hp_3] == 3) {
-    //	ast = new Asteroid(x, 3, params[Ast_hp_2], params//[Ast_spd_2]);
-    //}    
+    if(params[NUMB_OBSTACLES] == 1)
+    {
+        ast = new Asteroid(x, 3, 100, 20, 100);
+    }
+    else
+    {
+        ast = new Asteroid(x, 3, params[HEALTH_ASTEROID], params[SPEED_ASTEROID], params[SIZE_ASTEROID]);
+    }
 
     return ast;
 }

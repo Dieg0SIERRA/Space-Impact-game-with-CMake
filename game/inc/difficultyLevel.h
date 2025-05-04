@@ -35,7 +35,7 @@ enum matrixEnemies:int
 inline std::vector <std::vector<int>> matrixEnemies =
     {                        // score   num_Ast   hp_1   spd_1      size_1       new_ast  #_Ast_2   hp_2   spd_2   #_Ast_3   hp_3   spd_3   #_obst   spd_obst
                              {0,       2,       1,     26,         1,         1,       0,       0,     0,        0,       0,     0,      0,      0},
-                             {10,      2,       10,    22,        20,         3,       0,       0,     0,        0,       0,     0,      0,      0},
+                             {10,      2,       10,    8,        20,         3,       1,       0,     0,        0,       0,     0,      0,      0},
                              {20,      3,       1,     22,         5,         4,       0,       0,     0,        0,       0,     0,      0,      0},
                              {30,      4,       1,     20,         3,         5,       0,       0,     0,        0,       0,     0,      0,      0},
                              {40,      5,       1,     18,         3,         6,       0,       0,     0,        0,       0,     0,      0,      0},

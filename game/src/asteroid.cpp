@@ -78,6 +78,21 @@ void Asteroid::draw()
             Tools::gotoxy(valueX-1, valueY);    printf("%c%c%c", 45, 157, 45);
         }
     }
+    if (m_size == 100)     // It's an obstacle, it can not be shot
+    {
+        if(valueY > 3) {
+            if (valueY > 4 && valueY < Y_LIMIT)
+            {
+                Tools::gotoxy(valueX, valueY-1);    printf("%c%c", 201, 187);
+                Tools::gotoxy(valueX, valueY+1);    printf("%c%c", 200, 188);
+            }
+            else if (valueY == Y_LIMIT)
+            {
+                Tools::gotoxy(valueX, valueY-1);    printf("%c%c", 201, 187);
+            }
+            Tools::gotoxy(valueX, valueY);    printf("%c%c", 186, 186);
+        }
+    }
 }
 
 void Asteroid::move() 
@@ -110,6 +125,19 @@ void Asteroid::move()
                         Tools::gotoxy(valueX-1, valueY-1);      printf("   ");
                     }
                     Tools::gotoxy(valueX-1, valueY);      printf("   ");
+                }
+                else if (m_size == 100)
+                {
+                    if (valueY > 4 && valueY < Y_LIMIT)
+                    {
+                        Tools::gotoxy(valueX, valueY-1);      printf("  ");
+                        Tools::gotoxy(valueX, valueY+1);      printf("  ");
+                    }
+                    else if (valueY == Y_LIMIT)
+                    {
+                        Tools::gotoxy(valueX, valueY-1);      printf("  ");
+                    }
+                    Tools::gotoxy(valueX, valueY);      printf("  ");
                 }
                 else
                 {
@@ -151,6 +179,15 @@ void Asteroid::erase()
             Tools::gotoxy(valueX-1, valueY+1);      printf("   ");
         }
         Tools::gotoxy(valueX-1, valueY);      printf("   ");
+    }
+    else if (m_size == 100)
+    {
+        if (valueY > 4)
+        {
+            Tools::gotoxy(valueX, valueY-1);      printf("  ");
+            Tools::gotoxy(valueX, valueY+1);      printf("  ");
+        }
+        Tools::gotoxy(valueX, valueY);      printf("  ");
     }
     else
     {
