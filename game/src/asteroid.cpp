@@ -93,6 +93,21 @@ void Asteroid::draw()
             Tools::gotoxy(valueX, valueY);    printf("%c%c", 186, 186);
         }
     }
+    if (m_size == 200)     // It's the Portugal obstacle, it can not be shot
+    {
+        if(valueY > 3) {
+            if (valueY > 4 && valueY < Y_LIMIT)
+            {
+                Tools::gotoxy(valueX-1, valueY-1);    printf("%c%c%c", 32, 203, 32);
+                Tools::gotoxy(valueX-1, valueY+1);    printf("%c%c%c", 32, 202, 32);
+            }
+            else if (valueY == Y_LIMIT)
+            {
+                Tools::gotoxy(valueX-1, valueY-1);    printf("%c%c%c", 32, 203, 32);
+            }
+            Tools::gotoxy(valueX-1, valueY);    printf("%c%c%c", 204, 206, 185);
+        }
+    }
 }
 
 void Asteroid::move() 
@@ -113,7 +128,7 @@ void Asteroid::move()
                     }
                     Tools::gotoxy(valueX, valueY);      printf("  ");
                 }
-                else if (m_size == 20)
+                else if (m_size == 20 || m_size == 200)     // Big asteroid or the Portugal obstacle
                 {
                     if (valueY > 4 && valueY < Y_LIMIT)
                     {
@@ -171,7 +186,7 @@ void Asteroid::erase()
         }
         Tools::gotoxy(valueX, valueY);      printf("  ");
     }
-    else if (m_size == 20)
+    else if (m_size == 20 || m_size == 200)     // Big asteroid or the Portugal obstacle
     {
         if (valueY > 4)
         {

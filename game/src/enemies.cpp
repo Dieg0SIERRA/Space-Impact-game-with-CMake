@@ -27,6 +27,10 @@ Asteroid *Enemies::createAsteroid(std::vector<int> params)
     {
         ast = new Asteroid(x, 3, 100, 20, 100);
     }
+    else if(params[NUMB_OBSTACLES] == 2)
+    {
+        ast = new Asteroid(x, 3, 200, 20, 200);
+    }
     else
     {
         ast = new Asteroid(x, 3, params[HEALTH_ASTEROID], params[SPEED_ASTEROID], params[SIZE_ASTEROID]);
